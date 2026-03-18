@@ -2363,29 +2363,29 @@
         
         // ========== VEÍCULOS ==========
         async function carregarVeiculos() {
-            try {
-                let query = supabaseClient
-                    .from('veiculos')
-                    .select('*');
-                
-                // Se não for admin, filtrar por setor do usuário
-                if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
-                    query = query.eq('setor', usuarioAtual.setor);
-                }
-                
-                const { data, error } = await query.order('placa');
-                
-                if (error) throw error;
-                
-                veiculosData = data || [];
-                atualizarCardsVeiculos();
-                atualizarTabelaVeiculos();
-                
-            } catch (error) {
-                console.error('Erro ao carregar veículos:', error);
-                mostrarNotificacao('Erro ao carregar veículos', 'error');
-            }
+    try {
+        let query = supabaseClient
+            .from('veiculos')
+            .select('*');
+        
+        // Se não for admin, filtrar por setor do usuário
+        if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
+            query = query.eq('setor', usuarioAtual.setor);
         }
+        
+        const { data, error } = await query.order('placa');
+        
+        if (error) throw error;
+        
+        veiculosData = data || [];
+        atualizarCardsVeiculos();
+        atualizarTabelaVeiculos();
+        
+    } catch (error) {
+        console.error('Erro ao carregar veículos:', error);
+        mostrarNotificacao('Erro ao carregar veículos', 'error');
+    }
+}
         
         function atualizarCardsVeiculos() {
             const ativos = veiculosData.filter(v => v.status === 'ativo').length;
@@ -2481,125 +2481,131 @@
         }
         
         function abrirModalVeiculo(veiculo = null) {
-            document.getElementById('modalVeiculoTitulo').textContent = veiculo ? 'Editar Veículo' : 'Novo Veículo';
-            
-            if (veiculo) {
-                document.getElementById('veiculoId').value = veiculo.id || '';
-                document.getElementById('placa').value = veiculo.placa || '';
-                document.getElementById('modelo').value = veiculo.modelo || '';
-                document.getElementById('marca').value = veiculo.marca || '';
-                document.getElementById('setorVeiculo').value = veiculo.setor || 'Frota';
-                document.getElementById('ano').value = veiculo.ano || new Date().getFullYear();
-                document.getElementById('km_atual').value = veiculo.km_atual || 0;
-                document.getElementById('tipo_veiculo').value = veiculo.tipo_veiculo || 'Carro';
-                document.getElementById('statusVeiculo').value = veiculo.status || 'ativo';
-                document.getElementById('observacoesVeiculo').value = veiculo.observacoes || '';
-            } else {
-                document.getElementById('formVeiculo').reset();
-                document.getElementById('veiculoId').value = '';
-                document.getElementById('ano').value = new Date().getFullYear();
-                document.getElementById('setorVeiculo').value = usuarioAtual.setor || 'Frota';
-                document.getElementById('statusVeiculo').value = 'ativo';
-            }
-            
-            document.getElementById('modalVeiculo').style.display = 'flex';
-        }
+    document.getElementById('modalVeiculoTitulo').textContent = veiculo ? 'Editar Veículo' : 'Novo Veículo';
+    
+    if (veiculo) {
+        document.getElementById('veiculoId').value = veiculo.id || '';
+        document.getElementById('placa').value = veiculo.placa || '';
+        document.getElementById('modelo').value = veiculo.modelo || '';
+        document.getElementById('marca').value = veiculo.marca || '';
+        document.getElementById('setorVeiculo').value = veiculo.setor || 'Frota';
+        document.getElementById('ano').value = veiculo.ano || new Date().getFullYear();
+        document.getElementById('km_atual').value = veiculo.km_atual || 0;
+        document.getElementById('tipo_veiculo').value = veiculo.tipo_veiculo || 'Carro';
+        document.getElementById('statusVeiculo').value = veiculo.status || 'ativo';
+        
+        // Campo observacoes (se existir no modal)
+        const obsField = document.getElementById('observacoesVeiculo');
+        if (obsField) obsField.value = veiculo.observacoes || '';
+    } else {
+        document.getElementById('formVeiculo').reset();
+        document.getElementById('veiculoId').value = '';
+        document.getElementById('ano').value = new Date().getFullYear();
+        document.getElementById('setorVeiculo').value = usuarioAtual.setor || 'Frota';
+        document.getElementById('statusVeiculo').value = 'ativo';
+    }
+    
+    document.getElementById('modalVeiculo').style.display = 'flex';
+}
         
         function fecharModalVeiculo() {
             document.getElementById('modalVeiculo').style.display = 'none';
         }
         
-        async function salvarVeiculo() {
-            const dados = {
-                placa: document.getElementById('placa').value.toUpperCase(),
-                modelo: document.getElementById('modelo').value,
-                marca: document.getElementById('marca').value,
-                setor: document.getElementById('setorVeiculo').value,
-                ano: parseInt(document.getElementById('ano').value),
-                km_atual: parseFloat(document.getElementById('km_atual').value),
-                tipo_veiculo: document.getElementById('tipo_veiculo').value,
-                status: document.getElementById('statusVeiculo').value,
-                observacoes: document.getElementById('observacoesVeiculo').value || null,
-                updated_at: new Date().toISOString()
-            };
-            
-            // Validações
-            if (!dados.placa || !dados.modelo || !dados.marca || !dados.setor || !dados.ano || !dados.km_atual || !dados.tipo_veiculo || !dados.status) {
-                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
-                return;
-            }
-            
-            const id = document.getElementById('veiculoId').value;
-            
-            try {
-                let error;
-                if (id) {
-                    ({ error } = await supabaseClient.from('veiculos').update(dados).eq('id', id));
-                } else {
-                    dados.created_at = new Date().toISOString();
-                    ({ error } = await supabaseClient.from('veiculos').insert([dados]));
-                }
-                
-                if (error) {
-                    if (error.message.includes('duplicate')) {
-                        mostrarNotificacao('Placa já cadastrada', 'error');
-                    } else {
-                        throw error;
-                    }
-                    return;
-                }
-                
-                mostrarNotificacao(`Veículo ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
-                fecharModalVeiculo();
-                await carregarVeiculos();
-                
-            } catch (error) {
-                console.error('Erro ao salvar veículo:', error);
-                mostrarNotificacao('Erro ao salvar veículo', 'error');
-            }
+       async function salvarVeiculo() {
+    // Coletar dados do formulário
+    const dados = {
+        placa: document.getElementById('placa').value.toUpperCase(),
+        modelo: document.getElementById('modelo').value,
+        marca: document.getElementById('marca').value,
+        setor: document.getElementById('setorVeiculo').value,
+        ano: parseInt(document.getElementById('ano').value),
+        km_atual: parseFloat(document.getElementById('km_atual').value),
+        tipo_veiculo: document.getElementById('tipo_veiculo').value,
+        status: document.getElementById('statusVeiculo').value,
+        nome: document.getElementById('modelo').value // Preenche nome com o modelo
+    };
+    
+    // Adicionar campos opcionais
+    const observacoes = document.getElementById('observacoesVeiculo')?.value;
+    if (observacoes) dados.observacoes = observacoes;
+    
+    const id = document.getElementById('veiculoId').value;
+    
+    // Validações básicas
+    if (!dados.placa || !dados.modelo || !dados.marca || !dados.setor || !dados.ano || !dados.km_atual || !dados.tipo_veiculo || !dados.status) {
+        mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+        return;
+    }
+    
+    try {
+        console.log('Enviando dados do veículo:', dados); // Para debug
+        
+        let resultado;
+        if (id) {
+            // Atualizar - usar data_atualizacao
+            dados.data_atualizacao = new Date().toISOString();
+            resultado = await supabaseClient
+                .from('veiculos')
+                .update(dados)
+                .eq('id', id);
+        } else {
+            // Inserir novo - usar data_criacao
+            dados.data_criacao = new Date().toISOString();
+            resultado = await supabaseClient
+                .from('veiculos')
+                .insert([dados]);
         }
         
-        async function excluirVeiculo(id) {
-            if (!confirm('Excluir veículo permanentemente? Esta ação não pode ser desfeita.')) return;
+        if (resultado.error) {
+            console.error('Erro detalhado:', resultado.error);
             
-            try {
-                const { error } = await supabaseClient.from('veiculos').delete().eq('id', id);
-                if (error) throw error;
-                
-                mostrarNotificacao('Veículo excluído com sucesso!', 'success');
-                await carregarVeiculos();
-                
-            } catch (error) {
-                console.error('Erro ao excluir veículo:', error);
-                mostrarNotificacao('Erro ao excluir veículo', 'error');
+            if (resultado.error.message && resultado.error.message.includes('duplicate')) {
+                mostrarNotificacao('Placa já cadastrada', 'error');
+            } else if (resultado.error.code === 'PGRST204') {
+                mostrarNotificacao('Erro na estrutura da tabela. Verifique os nomes das colunas.', 'error');
+                console.log('Campos enviados:', Object.keys(dados));
+            } else {
+                mostrarNotificacao('Erro ao salvar veículo: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
             }
+            return;
         }
+        
+        mostrarNotificacao(`Veículo ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+        fecharModalVeiculo();
+        await carregarVeiculos();
+        
+    } catch (error) {
+        console.error('Erro ao salvar veículo:', error);
+        mostrarNotificacao('Erro ao salvar veículo', 'error');
+    }
+}
         
         // ========== COLABORADORES ==========
         async function carregarColaboradores() {
-            try {
-                let query = supabaseClient
-                    .from('colaboradores')
-                    .select('*');
-                
-                // Se não for admin, filtrar por setor do usuário
-                if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
-                    query = query.eq('setor', usuarioAtual.setor);
-                }
-                
-                const { data, error } = await query.order('nome_completo');
-                
-                if (error) throw error;
-                
-                colaboradoresData = data || [];
-                atualizarCardsColaboradores();
-                atualizarTabelaColaboradores();
-                
-            } catch (error) {
-                console.error('Erro ao carregar colaboradores:', error);
-                mostrarNotificacao('Erro ao carregar colaboradores', 'error');
-            }
+    try {
+        let query = supabaseClient
+            .from('colaboradores')
+            .select('*');
+        
+        // Se não for admin, filtrar por setor do usuário
+        if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
+            query = query.eq('setor', usuarioAtual.setor);
         }
+        
+        const { data, error } = await query.order('nome_completo');
+        
+        if (error) throw error;
+        
+        colaboradoresData = data || [];
+        atualizarCardsColaboradores();
+        atualizarTabelaColaboradores();
+        
+    } catch (error) {
+        console.error('Erro ao carregar colaboradores:', error);
+        mostrarNotificacao('Erro ao carregar colaboradores', 'error');
+    }
+}
         
         function atualizarCardsColaboradores() {
             const ativos = colaboradoresData.filter(c => c.status === 'ativo').length;
@@ -2716,64 +2722,79 @@
         }
         
         async function salvarColaborador() {
-            const dados = {
-                nome_completo: document.getElementById('nomeColaborador').value,
-                cpf: document.getElementById('cpf').value || null,
-                telefone: document.getElementById('telefone').value || null,
-                funcao: document.getElementById('funcaoColaborador').value,
-                setor: document.getElementById('setorColaborador').value,
-                email: document.getElementById('email').value || null,
-                data_admissao: document.getElementById('dataAdmissao').value || null,
-                status: document.getElementById('statusColaborador').value,
-                updated_at: new Date().toISOString()
-            };
-            
-            // Validações
-            if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
-                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
-                return;
-            }
-            
-            const id = document.getElementById('colaboradorId').value;
-            
-            try {
-                let error;
-                if (id) {
-                    ({ error } = await supabaseClient.from('colaboradores').update(dados).eq('id', id));
-                } else {
-                    dados.created_at = new Date().toISOString();
-                    ({ error } = await supabaseClient.from('colaboradores').insert([dados]));
-                }
-                
-                if (error) {
-                    throw error;
-                }
-                
-                mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
-                fecharModalColaborador();
-                await carregarColaboradores();
-                
-            } catch (error) {
-                console.error('Erro ao salvar colaborador:', error);
-                mostrarNotificacao('Erro ao salvar colaborador', 'error');
-            }
+    // Coletar dados do formulário
+    const dados = {
+        nome_completo: document.getElementById('nomeColaborador').value,
+        funcao: document.getElementById('funcaoColaborador').value,
+        setor: document.getElementById('setorColaborador').value,
+        status: document.getElementById('statusColaborador').value,
+        usuario_id: usuarioAtual.id // Vincular ao usuário logado
+    };
+    
+    // Adicionar campos opcionais apenas se tiverem valor
+    const cpf = document.getElementById('cpf').value;
+    if (cpf) dados.cpf = cpf;
+    
+    const telefone = document.getElementById('telefone').value;
+    if (telefone) dados.telefone = telefone;
+    
+    const email = document.getElementById('email').value;
+    if (email) dados.email = email;
+    
+    const dataAdmissao = document.getElementById('dataAdmissao').value;
+    if (dataAdmissao) dados.data_admissao = dataAdmissao;
+    
+    const id = document.getElementById('colaboradorId').value;
+    
+    // Validações básicas
+    if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
+        mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+        return;
+    }
+    
+    try {
+        console.log('Enviando dados do colaborador:', dados); // Para debug
+        
+        let resultado;
+        if (id) {
+            // Atualizar - usar data_atualizacao
+            dados.data_atualizacao = new Date().toISOString();
+            resultado = await supabaseClient
+                .from('colaboradores')
+                .update(dados)
+                .eq('id', id);
+        } else {
+            // Inserir novo - usar data_criacao
+            dados.data_criacao = new Date().toISOString();
+            dados.created_by = 'dashboard';
+            resultado = await supabaseClient
+                .from('colaboradores')
+                .insert([dados]);
         }
         
-        async function excluirColaborador(id) {
-            if (!confirm('Excluir colaborador permanentemente? Esta ação não pode ser desfeita.')) return;
+        if (resultado.error) {
+            console.error('Erro detalhado:', resultado.error);
             
-            try {
-                const { error } = await supabaseClient.from('colaboradores').delete().eq('id', id);
-                if (error) throw error;
-                
-                mostrarNotificacao('Colaborador excluído com sucesso!', 'success');
-                await carregarColaboradores();
-                
-            } catch (error) {
-                console.error('Erro ao excluir colaborador:', error);
-                mostrarNotificacao('Erro ao excluir colaborador', 'error');
+            if (resultado.error.code === '23505') {
+                mostrarNotificacao('CPF ou Email já cadastrado', 'error');
+            } else if (resultado.error.code === 'PGRST204') {
+                mostrarNotificacao('Erro na estrutura da tabela', 'error');
+                console.log('Campos enviados:', Object.keys(dados));
+            } else {
+                mostrarNotificacao('Erro ao salvar colaborador: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
             }
+            return;
         }
+        
+        mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+        fecharModalColaborador();
+        await carregarColaboradores();
+        
+    } catch (error) {
+        console.error('Erro ao salvar colaborador:', error);
+        mostrarNotificacao('Erro ao salvar colaborador', 'error');
+    }
+}
         
         // ========== USUÁRIOS ==========
         function verificarFuncaoUsuario() {
