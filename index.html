@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FleetControl Pro - Sistema de Gestão</title>
+    <title>Gestão de Frota Pro - Sistema de Gestão</title>
     
     <!-- SUPABASE -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
@@ -971,7 +971,7 @@
                     <i class="fas fa-truck-fast"></i>
                 </div>
                 <div class="login-logo-text">
-                    <h1>FleetControl</h1>
+                    <h1>Gestão de Frota</h1>
                     <p>Sistema de Gestão de Frotas</p>
                 </div>
             </div>
@@ -1003,7 +1003,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 20px; color: #94a3b8; font-size: 13px;">
-                <i class="far fa-copyright"></i> 2024 FleetControl Pro
+                <i class="far fa-copyright"></i> 2026 Gestão de Frota Pro
             </div>
         </div>
     </div>
@@ -1072,7 +1072,7 @@
                         <i class="fas fa-truck-fast"></i>
                     </div>
                     <div class="logo-text">
-                        <h2>FleetControl</h2>
+                        <h2>Gestão de Frota</h2>
                         <p>Sistema de Gestão</p>
                     </div>
                 </div>
@@ -1524,74 +1524,73 @@
         
         // ========== LOGIN ==========
         async function fazerLogin() {
-            // Resetar erros
-            document.querySelectorAll('.login-error-message').forEach(el => {
-                el.style.display = 'none';
-            });
-            document.querySelectorAll('.login-form-control').forEach(el => {
-                el.style.borderColor = '#e2e8f0';
-            });
-            
-            const usuario = document.getElementById('loginUsuario').value.trim();
-            const senha = document.getElementById('loginSenha').value;
-            
-            let valido = true;
-            
-            if (!usuario) {
-                document.getElementById('loginUsuario').style.borderColor = '#ef4444';
-                document.getElementById('loginUsuarioError').style.display = 'block';
-                valido = false;
-            }
-            
-            if (!senha) {
-                document.getElementById('loginSenha').style.borderColor = '#ef4444';
-                document.getElementById('loginSenhaError').style.display = 'block';
-                valido = false;
-            }
-            
-            if (!valido) return;
-            
-            try {
-                // Buscar usuário na tabela 'usuarios'
-                const { data, error } = await supabaseClient
-                    .from('usuarios')
-                    .select('*')
-                    .eq('nome_usuario', usuario)
-                    .eq('ativo', true)
-                    .single();
-                
-                if (error || !data) {
-                    mostrarErroLogin('Usuário não encontrado ou inativo');
-                    return;
-                }
-                
-                // Verificar senha (simples - em produção use bcrypt)
-                if (data.senha_hash !== btoa(senha)) {
-                    mostrarErroLogin('Senha incorreta');
-                    return;
-                }
-                
-                // Login bem-sucedido
-                usuarioAtual = {
-                    id: data.id,
-                    nome: data.nome,
-                    email: data.email,
-                    nome_usuario: data.nome_usuario,
-                    funcao: data.funcao || 'usuario',
-                    setor: data.setor || 'Geral'
-                };
-                
-                localStorage.setItem('fleet_user', JSON.stringify(usuarioAtual));
-                
-                mostrarNotificacao('Login realizado com sucesso!', 'success');
-                mostrarAplicacao();
-                
-            } catch (error) {
-                console.error('Erro no login:', error);
-                mostrarErroLogin('Erro ao conectar com o servidor');
-            }
+    // Resetar erros
+    document.querySelectorAll('.login-error-message').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.login-form-control').forEach(el => {
+        el.style.borderColor = '#e2e8f0';
+    });
+    
+    const usuario = document.getElementById('loginUsuario').value.trim();
+    const senha = document.getElementById('loginSenha').value;
+    
+    let valido = true;
+    
+    if (!usuario) {
+        document.getElementById('loginUsuario').style.borderColor = '#ef4444';
+        document.getElementById('loginUsuarioError').style.display = 'block';
+        valido = false;
+    }
+    
+    if (!senha) {
+        document.getElementById('loginSenha').style.borderColor = '#ef4444';
+        document.getElementById('loginSenhaError').style.display = 'block';
+        valido = false;
+    }
+    
+    if (!valido) return;
+    
+    try {
+        // Buscar usuário na tabela 'usuarios'
+        const { data, error } = await supabaseClient
+            .from('usuarios')
+            .select('*')
+            .eq('nome_usuario', usuario)
+            .eq('ativo', true)
+            .single();
+        
+        if (error || !data) {
+            mostrarErroLogin('Usuário não encontrado ou inativo');
+            return;
         }
         
+        // Verificar senha
+        if (data.senha_hash !== btoa(senha)) {
+            mostrarErroLogin('Senha incorreta');
+            return;
+        }
+        
+        // Login bem-sucedido
+        usuarioAtual = {
+            id: data.id,
+            nome: data.nome,
+            email: data.email,
+            nome_usuario: data.nome_usuario,
+            funcao: data.funcao || 'usuario',
+            setor: data.setor || 'Geral'
+        };
+        
+        localStorage.setItem('fleet_user', JSON.stringify(usuarioAtual));
+        
+        mostrarNotificacao('Login realizado com sucesso!', 'success');
+        mostrarAplicacao();
+        
+    } catch (error) {
+        console.error('Erro no login:', error);
+        mostrarErroLogin('Erro ao conectar com o servidor');
+    }
+}  
         function mostrarErroLogin(mensagem) {
             const notification = document.createElement('div');
             notification.className = 'notification error';
@@ -1620,80 +1619,89 @@
         }
         
         async function criarPrimeiroAdmin() {
-            const usuario = document.getElementById('primeiroUsuario').value.trim();
-            const nome = document.getElementById('primeiroNome').value.trim();
-            const email = document.getElementById('primeiroEmail').value.trim();
-            const senha = document.getElementById('primeiroSenha').value;
-            const confirmar = document.getElementById('primeiroConfirmarSenha').value;
-            
-            // Validações
-            if (!usuario || !nome || !email || !senha) {
-                mostrarNotificacao('Preencha todos os campos', 'error');
-                return;
-            }
-            
-            if (senha !== confirmar) {
-                mostrarNotificacao('Senhas não conferem', 'error');
-                return;
-            }
-            
-            if (senha.length < 6) {
-                mostrarNotificacao('Senha deve ter no mínimo 6 caracteres', 'error');
-                return;
-            }
-            
-            if (!email.includes('@')) {
-                mostrarNotificacao('Email inválido', 'error');
-                return;
-            }
-            
-            try {
-                // Verificar se já existe algum admin
-                const { data: verificar, error: verifError } = await supabaseClient
-                    .from('usuarios')
-                    .select('id')
-                    .eq('funcao', 'admin')
-                    .limit(1);
-                
-                if (!verifError && verificar && verificar.length > 0) {
-                    mostrarNotificacao('Já existe um administrador no sistema', 'error');
-                    fecharModalPrimeiroAcesso();
-                    return;
-                }
-                
-                // Criar o admin
-                const { error } = await supabaseClient
-                    .from('usuarios')
-                    .insert([{
-                        nome_usuario: usuario,
-                        nome: nome,
-                        email: email,
-                        senha_hash: btoa(senha), // SIMPLES - em produção use hash de verdade
-                        funcao: 'admin',
-                        setor: 'Geral',
-                        ativo: true,
-                        created_at: new Date().toISOString(),
-                        update_at: new Date().toISOString()
-                    }]);
-                
-                if (error) {
-                    if (error.message.includes('duplicate')) {
-                        mostrarNotificacao('Nome de usuário ou email já existe', 'error');
-                    } else {
-                        throw error;
-                    }
-                    return;
-                }
-                
-                mostrarNotificacao('Administrador criado com sucesso! Faça o login.', 'success');
-                fecharModalPrimeiroAcesso();
-                
-            } catch (error) {
-                console.error('Erro ao criar admin:', error);
-                mostrarNotificacao('Erro ao criar administrador', 'error');
-            }
+    const usuario = document.getElementById('primeiroUsuario').value.trim();
+    const nome = document.getElementById('primeiroNome').value.trim();
+    const email = document.getElementById('primeiroEmail').value.trim();
+    const senha = document.getElementById('primeiroSenha').value;
+    const confirmar = document.getElementById('primeiroConfirmarSenha').value;
+    
+    // Validações
+    if (!usuario || !nome || !email || !senha) {
+        mostrarNotificacao('Preencha todos os campos', 'error');
+        return;
+    }
+    
+    if (senha !== confirmar) {
+        mostrarNotificacao('Senhas não conferem', 'error');
+        return;
+    }
+    
+    if (senha.length < 6) {
+        mostrarNotificacao('Senha deve ter no mínimo 6 caracteres', 'error');
+        return;
+    }
+    
+    if (!email.includes('@')) {
+        mostrarNotificacao('Email inválido', 'error');
+        return;
+    }
+    
+    try {
+        // Verificar se já existe algum admin
+        const { data: verificar, error: verifError } = await supabaseClient
+            .from('usuarios')
+            .select('id')
+            .eq('funcao', 'admin')
+            .limit(1);
+        
+        if (!verifError && verificar && verificar.length > 0) {
+            mostrarNotificacao('Já existe um administrador no sistema', 'error');
+            fecharModalPrimeiroAcesso();
+            return;
         }
         
+        // Criar o admin - com os campos EXATOS da sua tabela
+        const { error } = await supabaseClient
+            .from('usuarios')
+            .insert([{
+                nome_usuario: usuario,
+                nome: nome,
+                email: email,
+                senha_hash: btoa(senha), // SIMPLES - em produção use hash de verdade
+                funcao: 'admin',
+                setor: 'Geral',
+                ativo: true,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(), // ← ATENÇÃO: updated_at (com d)
+                senha_alterada: false // ← BOOLEAN, não data
+            }]);
+        
+        if (error) {
+            console.error('Erro detalhado:', error);
+            
+            if (error.message && error.message.includes('duplicate')) {
+                mostrarNotificacao('Nome de usuário ou email já existe', 'error');
+            } else {
+                mostrarNotificacao('Erro ao criar administrador: ' + (error.message || 'Erro desconhecido'), 'error');
+            }
+            return;
+        }
+        
+        mostrarNotificacao('Administrador criado com sucesso! Faça o login.', 'success');
+        fecharModalPrimeiroAcesso();
+        
+        // Limpar campos
+        document.getElementById('primeiroUsuario').value = 'admin';
+        document.getElementById('primeiroNome').value = '';
+        document.getElementById('primeiroEmail').value = '';
+        document.getElementById('primeiroSenha').value = '';
+        document.getElementById('primeiroConfirmarSenha').value = '';
+        
+    } catch (error) {
+        console.error('Erro ao criar admin:', error);
+        mostrarNotificacao('Erro ao criar administrador', 'error');
+    }
+}   
         // ========== LOGOUT ==========
         function logout() {
             localStorage.removeItem('fleet_user');
