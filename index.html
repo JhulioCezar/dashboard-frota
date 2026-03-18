@@ -2363,29 +2363,29 @@
         
         // ========== VEÍCULOS ==========
         async function carregarVeiculos() {
-    try {
-        let query = supabaseClient
-            .from('veiculos')
-            .select('*');
-        
-        // Se não for admin, filtrar por setor do usuário
-        if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
-            query = query.eq('setor', usuarioAtual.setor);
+            try {
+                let query = supabaseClient
+                    .from('veiculos')
+                    .select('*');
+                
+                // Se não for admin, filtrar por setor do usuário
+                if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
+                    query = query.eq('setor', usuarioAtual.setor);
+                }
+                
+                const { data, error } = await query.order('placa');
+                
+                if (error) throw error;
+                
+                veiculosData = data || [];
+                atualizarCardsVeiculos();
+                atualizarTabelaVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao carregar veículos:', error);
+                mostrarNotificacao('Erro ao carregar veículos', 'error');
+            }
         }
-        
-        const { data, error } = await query.order('placa');
-        
-        if (error) throw error;
-        
-        veiculosData = data || [];
-        atualizarCardsVeiculos();
-        atualizarTabelaVeiculos();
-        
-    } catch (error) {
-        console.error('Erro ao carregar veículos:', error);
-        mostrarNotificacao('Erro ao carregar veículos', 'error');
-    }
-}
         
         function atualizarCardsVeiculos() {
             const ativos = veiculosData.filter(v => v.status === 'ativo').length;
@@ -2466,8 +2466,12 @@
                         <td>
                             <div class="action-buttons">
                                 ${podeEditar ? `
-                                    <button class="btn-icon" onclick="abrirModalVeiculo(${JSON.stringify(v).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon" onclick="excluirVeiculo('${v.id}')"><i class="fas fa-trash"></i></button>
+                                    <button class="btn-icon" onclick='abrirModalVeiculo(${JSON.stringify(v)})' title="Editar"><i class="fas fa-edit"></i></button>
+                                    ${v.status === 'ativo' ? 
+                                        `<button class="btn-icon" onclick="inativarVeiculo('${v.id}')" title="Inativar" style="color: #f59e0b;"><i class="fas fa-pause"></i></button>` :
+                                        `<button class="btn-icon" onclick="ativarVeiculo('${v.id}')" title="Ativar" style="color: #10b981;"><i class="fas fa-play"></i></button>`
+                                    }
+                                    <button class="btn-icon" onclick="excluirVeiculo('${v.id}')" title="Excluir" style="color: #ef4444;"><i class="fas fa-trash"></i></button>
                                 ` : `
                                     <span style="color: #94a3b8; font-size: 12px;">Sem permissão</span>
                                 `}
@@ -2481,131 +2485,251 @@
         }
         
         function abrirModalVeiculo(veiculo = null) {
-    document.getElementById('modalVeiculoTitulo').textContent = veiculo ? 'Editar Veículo' : 'Novo Veículo';
-    
-    if (veiculo) {
-        document.getElementById('veiculoId').value = veiculo.id || '';
-        document.getElementById('placa').value = veiculo.placa || '';
-        document.getElementById('modelo').value = veiculo.modelo || '';
-        document.getElementById('marca').value = veiculo.marca || '';
-        document.getElementById('setorVeiculo').value = veiculo.setor || 'Frota';
-        document.getElementById('ano').value = veiculo.ano || new Date().getFullYear();
-        document.getElementById('km_atual').value = veiculo.km_atual || 0;
-        document.getElementById('tipo_veiculo').value = veiculo.tipo_veiculo || 'Carro';
-        document.getElementById('statusVeiculo').value = veiculo.status || 'ativo';
-        
-        // Campo observacoes (se existir no modal)
-        const obsField = document.getElementById('observacoesVeiculo');
-        if (obsField) obsField.value = veiculo.observacoes || '';
-    } else {
-        document.getElementById('formVeiculo').reset();
-        document.getElementById('veiculoId').value = '';
-        document.getElementById('ano').value = new Date().getFullYear();
-        document.getElementById('setorVeiculo').value = usuarioAtual.setor || 'Frota';
-        document.getElementById('statusVeiculo').value = 'ativo';
-    }
-    
-    document.getElementById('modalVeiculo').style.display = 'flex';
-}
+            document.getElementById('modalVeiculoTitulo').textContent = veiculo ? 'Editar Veículo' : 'Novo Veículo';
+            
+            if (veiculo) {
+                document.getElementById('veiculoId').value = veiculo.id || '';
+                document.getElementById('placa').value = veiculo.placa || '';
+                document.getElementById('modelo').value = veiculo.modelo || '';
+                document.getElementById('marca').value = veiculo.marca || '';
+                document.getElementById('setorVeiculo').value = veiculo.setor || 'Frota';
+                document.getElementById('ano').value = veiculo.ano || new Date().getFullYear();
+                document.getElementById('km_atual').value = veiculo.km_atual || 0;
+                document.getElementById('tipo_veiculo').value = veiculo.tipo_veiculo || 'Carro';
+                document.getElementById('statusVeiculo').value = veiculo.status || 'ativo';
+                
+                // Campo observacoes (se existir no modal)
+                const obsField = document.getElementById('observacoesVeiculo');
+                if (obsField) obsField.value = veiculo.observacoes || '';
+            } else {
+                document.getElementById('formVeiculo').reset();
+                document.getElementById('veiculoId').value = '';
+                document.getElementById('ano').value = new Date().getFullYear();
+                document.getElementById('setorVeiculo').value = usuarioAtual.setor || 'Frota';
+                document.getElementById('statusVeiculo').value = 'ativo';
+            }
+            
+            document.getElementById('modalVeiculo').style.display = 'flex';
+        }
         
         function fecharModalVeiculo() {
             document.getElementById('modalVeiculo').style.display = 'none';
         }
         
-       async function salvarVeiculo() {
-    // Coletar dados do formulário
-    const dados = {
-        placa: document.getElementById('placa').value.toUpperCase(),
-        modelo: document.getElementById('modelo').value,
-        marca: document.getElementById('marca').value,
-        setor: document.getElementById('setorVeiculo').value,
-        ano: parseInt(document.getElementById('ano').value),
-        km_atual: parseFloat(document.getElementById('km_atual').value),
-        tipo_veiculo: document.getElementById('tipo_veiculo').value,
-        status: document.getElementById('statusVeiculo').value,
-        nome: document.getElementById('modelo').value // Preenche nome com o modelo
-    };
-    
-    // Adicionar campos opcionais
-    const observacoes = document.getElementById('observacoesVeiculo')?.value;
-    if (observacoes) dados.observacoes = observacoes;
-    
-    const id = document.getElementById('veiculoId').value;
-    
-    // Validações básicas
-    if (!dados.placa || !dados.modelo || !dados.marca || !dados.setor || !dados.ano || !dados.km_atual || !dados.tipo_veiculo || !dados.status) {
-        mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
-        return;
-    }
-    
-    try {
-        console.log('Enviando dados do veículo:', dados); // Para debug
-        
-        let resultado;
-        if (id) {
-            // Atualizar - usar data_atualizacao
-            dados.data_atualizacao = new Date().toISOString();
-            resultado = await supabaseClient
-                .from('veiculos')
-                .update(dados)
-                .eq('id', id);
-        } else {
-            // Inserir novo - usar data_criacao
-            dados.data_criacao = new Date().toISOString();
-            resultado = await supabaseClient
-                .from('veiculos')
-                .insert([dados]);
-        }
-        
-        if (resultado.error) {
-            console.error('Erro detalhado:', resultado.error);
+        async function salvarVeiculo() {
+            // Coletar dados do formulário
+            const dados = {
+                placa: document.getElementById('placa').value.toUpperCase(),
+                modelo: document.getElementById('modelo').value,
+                marca: document.getElementById('marca').value,
+                setor: document.getElementById('setorVeiculo').value,
+                ano: parseInt(document.getElementById('ano').value),
+                km_atual: parseFloat(document.getElementById('km_atual').value),
+                tipo_veiculo: document.getElementById('tipo_veiculo').value,
+                status: document.getElementById('statusVeiculo').value,
+                nome: document.getElementById('modelo').value // Preenche nome com o modelo
+            };
             
-            if (resultado.error.message && resultado.error.message.includes('duplicate')) {
-                mostrarNotificacao('Placa já cadastrada', 'error');
-            } else if (resultado.error.code === 'PGRST204') {
-                mostrarNotificacao('Erro na estrutura da tabela. Verifique os nomes das colunas.', 'error');
-                console.log('Campos enviados:', Object.keys(dados));
-            } else {
-                mostrarNotificacao('Erro ao salvar veículo: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
+            // Adicionar campos opcionais
+            const observacoes = document.getElementById('observacoesVeiculo')?.value;
+            if (observacoes) dados.observacoes = observacoes;
+            
+            const id = document.getElementById('veiculoId').value;
+            
+            // Validações básicas
+            if (!dados.placa || !dados.modelo || !dados.marca || !dados.setor || !dados.ano || !dados.km_atual || !dados.tipo_veiculo || !dados.status) {
+                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+                return;
             }
-            return;
+            
+            try {
+                console.log('Enviando dados do veículo:', dados); // Para debug
+                
+                let resultado;
+                if (id) {
+                    // Atualizar - usar data_atualizacao
+                    dados.data_atualizacao = new Date().toISOString();
+                    resultado = await supabaseClient
+                        .from('veiculos')
+                        .update(dados)
+                        .eq('id', id);
+                } else {
+                    // Inserir novo - usar data_criacao
+                    dados.data_criacao = new Date().toISOString();
+                    resultado = await supabaseClient
+                        .from('veiculos')
+                        .insert([dados]);
+                }
+                
+                if (resultado.error) {
+                    console.error('Erro detalhado:', resultado.error);
+                    
+                    if (resultado.error.message && resultado.error.message.includes('duplicate')) {
+                        mostrarNotificacao('Placa já cadastrada', 'error');
+                    } else if (resultado.error.code === 'PGRST204') {
+                        mostrarNotificacao('Erro na estrutura da tabela. Verifique os nomes das colunas.', 'error');
+                        console.log('Campos enviados:', Object.keys(dados));
+                    } else {
+                        mostrarNotificacao('Erro ao salvar veículo: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
+                    }
+                    return;
+                }
+                
+                mostrarNotificacao(`Veículo ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+                fecharModalVeiculo();
+                await carregarVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao salvar veículo:', error);
+                mostrarNotificacao('Erro ao salvar veículo', 'error');
+            }
         }
         
-        mostrarNotificacao(`Veículo ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
-        fecharModalVeiculo();
-        await carregarVeiculos();
+        async function inativarVeiculo(id) {
+            if (!confirm('Deseja inativar este veículo?')) return;
+            
+            try {
+                const { error } = await supabaseClient
+                    .from('veiculos')
+                    .update({ 
+                        status: 'inativo',
+                        data_atualizacao: new Date().toISOString()
+                    })
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                mostrarNotificacao('Veículo inativado com sucesso!', 'success');
+                await carregarVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao inativar veículo:', error);
+                mostrarNotificacao('Erro ao inativar veículo', 'error');
+            }
+        }
         
-    } catch (error) {
-        console.error('Erro ao salvar veículo:', error);
-        mostrarNotificacao('Erro ao salvar veículo', 'error');
-    }
-}
+        async function ativarVeiculo(id) {
+            try {
+                const { error } = await supabaseClient
+                    .from('veiculos')
+                    .update({ 
+                        status: 'ativo',
+                        data_atualizacao: new Date().toISOString()
+                    })
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                mostrarNotificacao('Veículo ativado com sucesso!', 'success');
+                await carregarVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao ativar veículo:', error);
+                mostrarNotificacao('Erro ao ativar veículo', 'error');
+            }
+        }
+        
+        async function excluirVeiculo(id) {
+            if (!confirm('⚠️ ATENÇÃO!\n\nDeseja excluir permanentemente este veículo?\n\nEsta ação NÃO pode ser desfeita!')) {
+                return;
+            }
+            
+            try {
+                // Primeiro, verificar se o veículo tem registros de checklist
+                const { data: checklists, error: checkError } = await supabaseClient
+                    .from('checklists')
+                    .select('id')
+                    .eq('placa', veiculosData.find(v => v.id === id)?.placa)
+                    .limit(1);
+                
+                if (checkError) throw checkError;
+                
+                if (checklists && checklists.length > 0) {
+                    // Se tiver checklists, perguntar se quer inativar em vez de excluir
+                    if (confirm('Este veículo possui registros de checklist. Deseja apenas inativá-lo em vez de excluir?')) {
+                        // Inativar o veículo
+                        const { error } = await supabaseClient
+                            .from('veiculos')
+                            .update({ 
+                                status: 'inativo',
+                                data_atualizacao: new Date().toISOString()
+                            })
+                            .eq('id', id);
+                        
+                        if (error) throw error;
+                        
+                        mostrarNotificacao('Veículo inativado com sucesso!', 'success');
+                        await carregarVeiculos();
+                        return;
+                    } else {
+                        // Se não quiser inativar, cancelar exclusão
+                        mostrarNotificacao('Operação cancelada', 'info');
+                        return;
+                    }
+                }
+                
+                // Se não tiver checklists, pode excluir
+                const { error } = await supabaseClient
+                    .from('veiculos')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) {
+                    // Se der erro de chave estrangeira, sugerir inativar
+                    if (error.code === '23503') {
+                        if (confirm('Erro ao excluir. Deseja inativar o veículo?')) {
+                            const { error: updateError } = await supabaseClient
+                                .from('veiculos')
+                                .update({ 
+                                    status: 'inativo',
+                                    data_atualizacao: new Date().toISOString()
+                                })
+                                .eq('id', id);
+                            
+                            if (updateError) throw updateError;
+                            
+                            mostrarNotificacao('Veículo inativado com sucesso!', 'success');
+                            await carregarVeiculos();
+                        }
+                        return;
+                    }
+                    throw error;
+                }
+                
+                mostrarNotificacao('Veículo excluído com sucesso!', 'success');
+                await carregarVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao excluir veículo:', error);
+                mostrarNotificacao('Erro ao excluir veículo', 'error');
+            }
+        }
         
         // ========== COLABORADORES ==========
         async function carregarColaboradores() {
-    try {
-        let query = supabaseClient
-            .from('colaboradores')
-            .select('*');
-        
-        // Se não for admin, filtrar por setor do usuário
-        if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
-            query = query.eq('setor', usuarioAtual.setor);
+            try {
+                let query = supabaseClient
+                    .from('colaboradores')
+                    .select('*');
+                
+                // Se não for admin, filtrar por setor do usuário
+                if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
+                    query = query.eq('setor', usuarioAtual.setor);
+                }
+                
+                const { data, error } = await query.order('nome_completo');
+                
+                if (error) throw error;
+                
+                colaboradoresData = data || [];
+                atualizarCardsColaboradores();
+                atualizarTabelaColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao carregar colaboradores:', error);
+                mostrarNotificacao('Erro ao carregar colaboradores', 'error');
+            }
         }
-        
-        const { data, error } = await query.order('nome_completo');
-        
-        if (error) throw error;
-        
-        colaboradoresData = data || [];
-        atualizarCardsColaboradores();
-        atualizarTabelaColaboradores();
-        
-    } catch (error) {
-        console.error('Erro ao carregar colaboradores:', error);
-        mostrarNotificacao('Erro ao carregar colaboradores', 'error');
-    }
-}
         
         function atualizarCardsColaboradores() {
             const ativos = colaboradoresData.filter(c => c.status === 'ativo').length;
@@ -2680,8 +2804,12 @@
                         <td>
                             <div class="action-buttons">
                                 ${podeEditar ? `
-                                    <button class="btn-icon" onclick="abrirModalColaborador(${JSON.stringify(c).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
-                                    <button class="btn-icon" onclick="excluirColaborador('${c.id}')"><i class="fas fa-trash"></i></button>
+                                    <button class="btn-icon" onclick='abrirModalColaborador(${JSON.stringify(c)})' title="Editar"><i class="fas fa-edit"></i></button>
+                                    ${c.status === 'ativo' ? 
+                                        `<button class="btn-icon" onclick="inativarColaborador('${c.id}')" title="Inativar" style="color: #f59e0b;"><i class="fas fa-pause"></i></button>` :
+                                        `<button class="btn-icon" onclick="ativarColaborador('${c.id}')" title="Ativar" style="color: #10b981;"><i class="fas fa-play"></i></button>`
+                                    }
+                                    <button class="btn-icon" onclick="excluirColaborador('${c.id}')" title="Excluir" style="color: #ef4444;"><i class="fas fa-trash"></i></button>
                                 ` : `
                                     <span style="color: #94a3b8; font-size: 12px;">Sem permissão</span>
                                 `}
@@ -2722,79 +2850,201 @@
         }
         
         async function salvarColaborador() {
-    // Coletar dados do formulário
-    const dados = {
-        nome_completo: document.getElementById('nomeColaborador').value,
-        funcao: document.getElementById('funcaoColaborador').value,
-        setor: document.getElementById('setorColaborador').value,
-        status: document.getElementById('statusColaborador').value,
-        usuario_id: usuarioAtual.id // Vincular ao usuário logado
-    };
-    
-    // Adicionar campos opcionais apenas se tiverem valor
-    const cpf = document.getElementById('cpf').value;
-    if (cpf) dados.cpf = cpf;
-    
-    const telefone = document.getElementById('telefone').value;
-    if (telefone) dados.telefone = telefone;
-    
-    const email = document.getElementById('email').value;
-    if (email) dados.email = email;
-    
-    const dataAdmissao = document.getElementById('dataAdmissao').value;
-    if (dataAdmissao) dados.data_admissao = dataAdmissao;
-    
-    const id = document.getElementById('colaboradorId').value;
-    
-    // Validações básicas
-    if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
-        mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
-        return;
-    }
-    
-    try {
-        console.log('Enviando dados do colaborador:', dados); // Para debug
-        
-        let resultado;
-        if (id) {
-            // Atualizar - usar data_atualizacao
-            dados.data_atualizacao = new Date().toISOString();
-            resultado = await supabaseClient
-                .from('colaboradores')
-                .update(dados)
-                .eq('id', id);
-        } else {
-            // Inserir novo - usar data_criacao
-            dados.data_criacao = new Date().toISOString();
-            dados.created_by = 'dashboard';
-            resultado = await supabaseClient
-                .from('colaboradores')
-                .insert([dados]);
-        }
-        
-        if (resultado.error) {
-            console.error('Erro detalhado:', resultado.error);
+            // Coletar dados do formulário
+            const dados = {
+                nome_completo: document.getElementById('nomeColaborador').value,
+                funcao: document.getElementById('funcaoColaborador').value,
+                setor: document.getElementById('setorColaborador').value,
+                status: document.getElementById('statusColaborador').value,
+                usuario_id: usuarioAtual.id // Vincular ao usuário logado
+            };
             
-            if (resultado.error.code === '23505') {
-                mostrarNotificacao('CPF ou Email já cadastrado', 'error');
-            } else if (resultado.error.code === 'PGRST204') {
-                mostrarNotificacao('Erro na estrutura da tabela', 'error');
-                console.log('Campos enviados:', Object.keys(dados));
-            } else {
-                mostrarNotificacao('Erro ao salvar colaborador: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
+            // Adicionar campos opcionais apenas se tiverem valor
+            const cpf = document.getElementById('cpf').value;
+            if (cpf) dados.cpf = cpf;
+            
+            const telefone = document.getElementById('telefone').value;
+            if (telefone) dados.telefone = telefone;
+            
+            const email = document.getElementById('email').value;
+            if (email) dados.email = email;
+            
+            const dataAdmissao = document.getElementById('dataAdmissao').value;
+            if (dataAdmissao) dados.data_admissao = dataAdmissao;
+            
+            const id = document.getElementById('colaboradorId').value;
+            
+            // Validações básicas
+            if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
+                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+                return;
             }
-            return;
+            
+            try {
+                console.log('Enviando dados do colaborador:', dados); // Para debug
+                
+                let resultado;
+                if (id) {
+                    // Atualizar - usar data_atualizacao
+                    dados.data_atualizacao = new Date().toISOString();
+                    resultado = await supabaseClient
+                        .from('colaboradores')
+                        .update(dados)
+                        .eq('id', id);
+                } else {
+                    // Inserir novo - usar data_criacao
+                    dados.data_criacao = new Date().toISOString();
+                    dados.created_by = 'dashboard';
+                    resultado = await supabaseClient
+                        .from('colaboradores')
+                        .insert([dados]);
+                }
+                
+                if (resultado.error) {
+                    console.error('Erro detalhado:', resultado.error);
+                    
+                    if (resultado.error.code === '23505') {
+                        mostrarNotificacao('CPF ou Email já cadastrado', 'error');
+                    } else if (resultado.error.code === 'PGRST204') {
+                        mostrarNotificacao('Erro na estrutura da tabela', 'error');
+                        console.log('Campos enviados:', Object.keys(dados));
+                    } else {
+                        mostrarNotificacao('Erro ao salvar colaborador: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
+                    }
+                    return;
+                }
+                
+                mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+                fecharModalColaborador();
+                await carregarColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao salvar colaborador:', error);
+                mostrarNotificacao('Erro ao salvar colaborador', 'error');
+            }
         }
         
-        mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
-        fecharModalColaborador();
-        await carregarColaboradores();
+        async function inativarColaborador(id) {
+            if (!confirm('Deseja inativar este colaborador?')) return;
+            
+            try {
+                const { error } = await supabaseClient
+                    .from('colaboradores')
+                    .update({ 
+                        status: 'inativo',
+                        data_atualizacao: new Date().toISOString()
+                    })
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                mostrarNotificacao('Colaborador inativado com sucesso!', 'success');
+                await carregarColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao inativar colaborador:', error);
+                mostrarNotificacao('Erro ao inativar colaborador', 'error');
+            }
+        }
         
-    } catch (error) {
-        console.error('Erro ao salvar colaborador:', error);
-        mostrarNotificacao('Erro ao salvar colaborador', 'error');
-    }
-}
+        async function ativarColaborador(id) {
+            try {
+                const { error } = await supabaseClient
+                    .from('colaboradores')
+                    .update({ 
+                        status: 'ativo',
+                        data_atualizacao: new Date().toISOString()
+                    })
+                    .eq('id', id);
+                
+                if (error) throw error;
+                
+                mostrarNotificacao('Colaborador ativado com sucesso!', 'success');
+                await carregarColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao ativar colaborador:', error);
+                mostrarNotificacao('Erro ao ativar colaborador', 'error');
+            }
+        }
+        
+        async function excluirColaborador(id) {
+            if (!confirm('⚠️ ATENÇÃO!\n\nDeseja excluir permanentemente este colaborador?\n\nEsta ação NÃO pode ser desfeita!')) {
+                return;
+            }
+            
+            try {
+                // Primeiro, verificar se o colaborador tem registros de checklist
+                const colaborador = colaboradoresData.find(c => c.id === id);
+                
+                const { data: checklists, error: checkError } = await supabaseClient
+                    .from('checklists')
+                    .select('id')
+                    .eq('colaborador', colaborador?.nome_completo)
+                    .limit(1);
+                
+                if (checkError) throw checkError;
+                
+                if (checklists && checklists.length > 0) {
+                    // Se tiver checklists, perguntar se quer inativar em vez de excluir
+                    if (confirm('Este colaborador possui registros de checklist. Deseja apenas inativá-lo em vez de excluir?')) {
+                        // Inativar o colaborador
+                        const { error } = await supabaseClient
+                            .from('colaboradores')
+                            .update({ 
+                                status: 'inativo',
+                                data_atualizacao: new Date().toISOString()
+                            })
+                            .eq('id', id);
+                        
+                        if (error) throw error;
+                        
+                        mostrarNotificacao('Colaborador inativado com sucesso!', 'success');
+                        await carregarColaboradores();
+                        return;
+                    } else {
+                        // Se não quiser inativar, cancelar exclusão
+                        mostrarNotificacao('Operação cancelada', 'info');
+                        return;
+                    }
+                }
+                
+                // Se não tiver checklists, pode excluir
+                const { error } = await supabaseClient
+                    .from('colaboradores')
+                    .delete()
+                    .eq('id', id);
+                
+                if (error) {
+                    // Se der erro de chave estrangeira, sugerir inativar
+                    if (error.code === '23503') {
+                        if (confirm('Erro ao excluir. Deseja inativar o colaborador?')) {
+                            const { error: updateError } = await supabaseClient
+                                .from('colaboradores')
+                                .update({ 
+                                    status: 'inativo',
+                                    data_atualizacao: new Date().toISOString()
+                                })
+                                .eq('id', id);
+                            
+                            if (updateError) throw updateError;
+                            
+                            mostrarNotificacao('Colaborador inativado com sucesso!', 'success');
+                            await carregarColaboradores();
+                        }
+                        return;
+                    }
+                    throw error;
+                }
+                
+                mostrarNotificacao('Colaborador excluído com sucesso!', 'success');
+                await carregarColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao excluir colaborador:', error);
+                mostrarNotificacao('Erro ao excluir colaborador', 'error');
+            }
+        }
         
         // ========== USUÁRIOS ==========
         function verificarFuncaoUsuario() {
@@ -2885,7 +3135,7 @@
                         </td>
                         <td>
                             <div class="action-buttons">
-                                <button class="btn-icon" onclick="abrirModalUsuario(${JSON.stringify(u).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
+                                <button class="btn-icon" onclick='abrirModalUsuario(${JSON.stringify(u)})'><i class="fas fa-edit"></i></button>
                                 ${u.id !== usuarioAtual.id ? `<button class="btn-icon" onclick="excluirUsuario('${u.id}')"><i class="fas fa-trash"></i></button>` : ''}
                             </div>
                         </td>
