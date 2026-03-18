@@ -2707,29 +2707,29 @@
         
         // ========== COLABORADORES ==========
         async function carregarColaboradores() {
-            try {
-                let query = supabaseClient
-                    .from('colaboradores')
-                    .select('*');
-                
-                // Se não for admin, filtrar por setor do usuário
-                if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
-                    query = query.eq('setor', usuarioAtual.setor);
-                }
-                
-                const { data, error } = await query.order('nome_completo');
-                
-                if (error) throw error;
-                
-                colaboradoresData = data || [];
-                atualizarCardsColaboradores();
-                atualizarTabelaColaboradores();
-                
-            } catch (error) {
-                console.error('Erro ao carregar colaboradores:', error);
-                mostrarNotificacao('Erro ao carregar colaboradores', 'error');
-            }
+    try {
+        let query = supabaseClient
+            .from('colaboradores')
+            .select('*');
+        
+        // Se não for admin, filtrar por setor do usuário
+        if (usuarioAtual.funcao !== 'admin' && usuarioAtual.setor && usuarioAtual.setor !== 'Geral') {
+            query = query.eq('setor', usuarioAtual.setor);
         }
+        
+        const { data, error } = await query.order('nome_completo');
+        
+        if (error) throw error;
+        
+        colaboradoresData = data || [];
+        atualizarCardsColaboradores();
+        atualizarTabelaColaboradores();
+        
+    } catch (error) {
+        console.error('Erro ao carregar colaboradores:', error);
+        mostrarNotificacao('Erro ao carregar colaboradores', 'error');
+    }
+}
         
         function atualizarCardsColaboradores() {
             const ativos = colaboradoresData.filter(c => c.status === 'ativo').length;
@@ -2850,80 +2850,63 @@
         }
         
         async function salvarColaborador() {
-            // Coletar dados do formulário
-            const dados = {
-                nome_completo: document.getElementById('nomeColaborador').value,
-                funcao: document.getElementById('funcaoColaborador').value,
-                setor: document.getElementById('setorColaborador').value,
-                status: document.getElementById('statusColaborador').value,
-                usuario_id: usuarioAtual.id // Vincular ao usuário logado
-            };
-            
-            // Adicionar campos opcionais apenas se tiverem valor
-            const cpf = document.getElementById('cpf').value;
-            if (cpf) dados.cpf = cpf;
-            
-            const telefone = document.getElementById('telefone').value;
-            if (telefone) dados.telefone = telefone;
-            
-            const email = document.getElementById('email').value;
-            if (email) dados.email = email;
-            
-            const dataAdmissao = document.getElementById('dataAdmissao').value;
-            if (dataAdmissao) dados.data_admissao = dataAdmissao;
-            
-            const id = document.getElementById('colaboradorId').value;
-            
-            // Validações básicas
-            if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
-                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
-                return;
-            }
-            
-            try {
-                console.log('Enviando dados do colaborador:', dados); // Para debug
-                
-                let resultado;
-                if (id) {
-                    // Atualizar - usar data_atualizacao
-                    dados.data_atualizacao = new Date().toISOString();
-                    resultado = await supabaseClient
-                        .from('colaboradores')
-                        .update(dados)
-                        .eq('id', id);
-                } else {
-                    // Inserir novo - usar data_criacao
-                    dados.data_criacao = new Date().toISOString();
-                    dados.created_by = 'dashboard';
-                    resultado = await supabaseClient
-                        .from('colaboradores')
-                        .insert([dados]);
-                }
-                
-                if (resultado.error) {
-                    console.error('Erro detalhado:', resultado.error);
-                    
-                    if (resultado.error.code === '23505') {
-                        mostrarNotificacao('CPF ou Email já cadastrado', 'error');
-                    } else if (resultado.error.code === 'PGRST204') {
-                        mostrarNotificacao('Erro na estrutura da tabela', 'error');
-                        console.log('Campos enviados:', Object.keys(dados));
-                    } else {
-                        mostrarNotificacao('Erro ao salvar colaborador: ' + (resultado.error.message || 'Erro desconhecido'), 'error');
-                    }
-                    return;
-                }
-                
-                mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
-                fecharModalColaborador();
-                await carregarColaboradores();
-                
-            } catch (error) {
-                console.error('Erro ao salvar colaborador:', error);
-                mostrarNotificacao('Erro ao salvar colaborador', 'error');
-            }
+    // Coletar dados do formulário - SEM usuario_id
+    const dados = {
+        nome_completo: document.getElementById('nomeColaborador').value,
+        funcao: document.getElementById('funcaoColaborador').value,
+        setor: document.getElementById('setorColaborador').value,
+        status: document.getElementById('statusColaborador').value
+        // REMOVIDO: usuario_id: usuarioAtual.id
+    };
+    
+    // Adicionar campos opcionais
+    const cpf = document.getElementById('cpf').value;
+    if (cpf) dados.cpf = cpf;
+    
+    const telefone = document.getElementById('telefone').value;
+    if (telefone) dados.telefone = telefone;
+    
+    const email = document.getElementById('email').value;
+    if (email) dados.email = email;
+    
+    const dataAdmissao = document.getElementById('dataAdmissao').value;
+    if (dataAdmissao) dados.data_admissao = dataAdmissao;
+    
+    const id = document.getElementById('colaboradorId').value;
+    
+    // Validações
+    if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
+        mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+        return;
+    }
+    
+    try {
+        let resultado;
+        if (id) {
+            dados.data_atualizacao = new Date().toISOString();
+            resultado = await supabaseClient
+                .from('colaboradores')
+                .update(dados)
+                .eq('id', id);
+        } else {
+            dados.data_criacao = new Date().toISOString();
+            dados.created_by = 'dashboard';
+            resultado = await supabaseClient
+                .from('colaboradores')
+                .insert([dados]);
         }
         
+        if (resultado.error) throw resultado.error;
+        
+        mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+        fecharModalColaborador();
+        await carregarColaboradores();
+        
+    } catch (error) {
+        console.error('Erro ao salvar colaborador:', error);
+        mostrarNotificacao('Erro ao salvar colaborador', 'error');
+    }
+}
         async function inativarColaborador(id) {
             if (!confirm('Deseja inativar este colaborador?')) return;
             
