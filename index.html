@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão de Frota Pro - Sistema de Gestão</title>
+    <title>Gestão de Frota - Sistema de Controle</title>
     
     <!-- SUPABASE -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
@@ -35,7 +35,7 @@
         /* ========== TELA DE LOGIN ========== */
         .login-wrapper {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -78,14 +78,14 @@
         .login-logo-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 30px;
             color: white;
-            box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 20px 30px -10px rgba(30, 64, 175, 0.5);
         }
         
         .login-logo-text h1 {
@@ -166,14 +166,14 @@
         }
         
         .login-btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             color: white;
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.5);
         }
         
         .login-btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 25px -5px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 15px 25px -5px rgba(30, 64, 175, 0.6);
         }
         
         .login-link {
@@ -191,7 +191,7 @@
         }
         
         .login-link button:hover {
-            color: #2563eb;
+            color: #1e40af;
         }
         
         /* ========== LAYOUT PRINCIPAL (APÓS LOGIN) ========== */
@@ -232,13 +232,13 @@
         .logo-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.3);
         }
         
         .logo-text h2 {
@@ -289,9 +289,9 @@
         }
         
         .nav-item.active {
-            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            background: linear-gradient(90deg, #1e40af, #3b82f6);
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.3);
         }
         
         .nav-item.active i {
@@ -423,7 +423,7 @@
         .user-avatar {
             width: 38px;
             height: 38px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             border-radius: 40px;
             display: flex;
             align-items: center;
@@ -507,7 +507,7 @@
             margin-bottom: 18px;
         }
         
-        .stat-icon.blue { background: #eff6ff; color: #2563eb; }
+        .stat-icon.blue { background: #eff6ff; color: #1e40af; }
         .stat-icon.green { background: #ecfdf5; color: #10b981; }
         .stat-icon.yellow { background: #fffbeb; color: #f59e0b; }
         .stat-icon.purple { background: #f5f3ff; color: #7c3aed; }
@@ -638,13 +638,13 @@
         }
         
         .btn-primary {
-            background: #3b82f6;
+            background: #1e40af;
             color: white;
-            box-shadow: 0 4px 10px -2px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 10px -2px rgba(30, 64, 175, 0.3);
         }
         
         .btn-primary:hover {
-            background: #2563eb;
+            background: #1e3a8a;
             transform: translateY(-2px);
         }
         
@@ -733,9 +733,9 @@
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #1e40af;
             background: white;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
         }
         
         /* MODAIS */
@@ -796,7 +796,7 @@
             height: 40px;
             border: 3px solid #e2e8f0;
             border-radius: 50%;
-            border-top-color: #3b82f6;
+            border-top-color: #1e40af;
             animation: spin 0.6s linear infinite;
         }
         
@@ -835,7 +835,7 @@
         .notification.success { background: #10b981; }
         .notification.error { background: #ef4444; }
         .notification.warning { background: #f59e0b; }
-        .notification.info { background: #3b82f6; }
+        .notification.info { background: #1e40af; }
         
         /* FILTROS */
         .filters-section {
@@ -972,7 +972,7 @@
                 </div>
                 <div class="login-logo-text">
                     <h1>Gestão de Frota</h1>
-                    <p>Sistema de Gestão de Frotas</p>
+                    <p>Sistema de Controle</p>
                 </div>
             </div>
             
@@ -1003,7 +1003,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 20px; color: #94a3b8; font-size: 13px;">
-                <i class="far fa-copyright"></i> 2026 Gestão de Frota Pro
+                <i class="far fa-copyright"></i> 2024 Gestão de Frota
             </div>
         </div>
     </div>
@@ -1012,7 +1012,7 @@
     <div class="modal" id="modalPrimeiroAcesso">
         <div class="modal-content" style="max-width: 500px;">
             <div class="modal-header">
-                <h2><i class="fas fa-user-shield" style="color: #3b82f6;"></i> Primeiro Acesso</h2>
+                <h2><i class="fas fa-user-shield" style="color: #1e40af;"></i> Primeiro Acesso</h2>
                 <button class="close-btn" onclick="fecharModalPrimeiroAcesso()"><i class="fas fa-times"></i></button>
             </div>
             <div class="modal-body">
@@ -1073,7 +1073,7 @@
                     </div>
                     <div class="logo-text">
                         <h2>Gestão de Frota</h2>
-                        <p>Sistema de Gestão</p>
+                        <p>Sistema de Controle</p>
                     </div>
                 </div>
             </div>
@@ -1180,7 +1180,7 @@
                 <div class="charts-grid" id="chartsSection" style="display: none;">
                     <div class="chart-card">
                         <div class="chart-header">
-                            <h3><i class="fas fa-chart-bar" style="color: #3b82f6;"></i> Tipos de Rota</h3>
+                            <h3><i class="fas fa-chart-bar" style="color: #1e40af;"></i> Tipos de Rota</h3>
                         </div>
                         <canvas id="graficoRota" style="height: 250px;"></canvas>
                     </div>
@@ -1241,7 +1241,7 @@
                 <!-- TABELA DE REGISTROS -->
                 <div class="content-container">
                     <div class="toolbar">
-                        <h2><i class="fas fa-list" style="color: #3b82f6;"></i> Registros de Checklist</h2>
+                        <h2><i class="fas fa-list" style="color: #1e40af;"></i> Registros de Checklist</h2>
                         <div>
                             <span style="color: #64748b; margin-right: 15px;" id="contadorRegistros">0 registros</span>
                             <button class="btn-icon" onclick="gerarRelatorio()" title="Relatório">
@@ -1282,7 +1282,7 @@
             <div id="veiculos-content" class="hidden">
                 <div class="content-container">
                     <div class="toolbar">
-                        <h2><i class="fas fa-truck" style="color: #3b82f6;"></i> Gerenciar Veículos</h2>
+                        <h2><i class="fas fa-truck" style="color: #1e40af;"></i> Gerenciar Veículos</h2>
                         <div>
                             <button class="btn btn-primary admin-only encarregado-only" onclick="abrirModalVeiculo()">
                                 <i class="fas fa-plus"></i> Novo Veículo
@@ -1326,7 +1326,7 @@
             <div id="colaboradores-content" class="hidden">
                 <div class="content-container">
                     <div class="toolbar">
-                        <h2><i class="fas fa-users" style="color: #3b82f6;"></i> Gerenciar Colaboradores</h2>
+                        <h2><i class="fas fa-users" style="color: #1e40af;"></i> Gerenciar Colaboradores</h2>
                         <div>
                             <button class="btn btn-primary admin-only encarregado-only" onclick="abrirModalColaborador()">
                                 <i class="fas fa-plus"></i> Novo Colaborador
@@ -1369,7 +1369,7 @@
             <div id="usuarios-content" class="hidden">
                 <div class="content-container">
                     <div class="toolbar">
-                        <h2><i class="fas fa-user-cog" style="color: #3b82f6;"></i> Gerenciar Usuários</h2>
+                        <h2><i class="fas fa-user-cog" style="color: #1e40af;"></i> Gerenciar Usuários</h2>
                         <div>
                             <button class="btn btn-primary admin-only" onclick="abrirModalUsuario()">
                                 <i class="fas fa-plus"></i> Novo Usuário
@@ -1385,8 +1385,8 @@
                                     <th>Nome</th>
                                     <th>Email</th>
                                     <th>Função</th>
+                                    <th>Setor</th>
                                     <th>Status</th>
-                                    <th>Último Acesso</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -1407,11 +1407,11 @@
             <!-- CONTEÚDO RELATÓRIOS -->
             <div id="relatorios-content" class="hidden">
                 <div class="content-container">
-                    <h2 style="margin-bottom: 20px;"><i class="fas fa-chart-line" style="color: #3b82f6;"></i> Relatórios</h2>
+                    <h2 style="margin-bottom: 20px;"><i class="fas fa-chart-line" style="color: #1e40af;"></i> Relatórios</h2>
                     
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
                         <div style="background: #f8fafc; padding: 25px; border-radius: 16px;">
-                            <i class="fas fa-calendar-day" style="font-size: 32px; color: #3b82f6; margin-bottom: 15px;"></i>
+                            <i class="fas fa-calendar-day" style="font-size: 32px; color: #1e40af; margin-bottom: 15px;"></i>
                             <h3 style="margin-bottom: 10px;">Relatório Diário</h3>
                             <p style="color: #64748b; margin-bottom: 20px;">Registros do dia atual</p>
                             <button class="btn btn-primary" onclick="gerarRelatorioDiario()">
@@ -1438,7 +1438,7 @@
                         </div>
                         
                         <div style="background: #f8fafc; padding: 25px; border-radius: 16px;">
-                            <i class="fas fa-file-export" style="font-size: 32px; color: #8b5cf6; margin-bottom: 15px;"></i>
+                            <i class="fas fa-file-export" style="font-size: 32px; color: #7c3aed; margin-bottom: 15px;"></i>
                             <h3 style="margin-bottom: 10px;">Relatório Completo</h3>
                             <p style="color: #64748b; margin-bottom: 20px;">Todos os registros</p>
                             <button class="btn btn-primary" onclick="gerarRelatorioCompleto()">
@@ -1449,6 +1449,310 @@
                 </div>
             </div>
         </main>
+    </div>
+    
+    <!-- MODAL VEÍCULO -->
+    <div class="modal" id="modalVeiculo">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalVeiculoTitulo">Novo Veículo</h2>
+                <button class="close-btn" onclick="fecharModalVeiculo()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="formVeiculo">
+                    <input type="hidden" id="veiculoId">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Placa *</label>
+                            <input type="text" id="placa" required maxlength="8" placeholder="ABC-1234">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Modelo *</label>
+                            <input type="text" id="modelo" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Marca *</label>
+                            <input type="text" id="marca" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Setor *</label>
+                            <select id="setorVeiculo" required>
+                                <option value="Frota">Frota</option>
+                                <option value="Operações">Operações</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Infra">Infra</option>
+                                <option value="NOC">NOC</option>
+                                <option value="SOC">SOC</option>
+                                <option value="RH">RH</option>
+                                <option value="Administrativo">Administrativo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Ano *</label>
+                            <input type="number" id="ano" min="1990" max="2025" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>KM Atual *</label>
+                            <input type="number" id="km_atual" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tipo *</label>
+                            <select id="tipo_veiculo" required>
+                                <option value="Carro">Carro</option>
+                                <option value="Moto">Moto</option>
+                                <option value="Caminhão">Caminhão</option>
+                                <option value="Van">Van</option>
+                                <option value="Utilitário">Utilitário</option>
+                                <option value="Ônibus">Ônibus</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Status *</label>
+                            <select id="statusVeiculo" required>
+                                <option value="ativo">Ativo</option>
+                                <option value="inativo">Inativo</option>
+                                <option value="manutencao">Manutenção</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <textarea id="observacoesVeiculo" rows="2" placeholder="Observações sobre o veículo..."></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="fecharModalVeiculo()" style="flex: 1;">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="salvarVeiculo()" style="flex: 1;">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL COLABORADOR -->
+    <div class="modal" id="modalColaborador">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalColaboradorTitulo">Novo Colaborador</h2>
+                <button class="close-btn" onclick="fecharModalColaborador()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="formColaborador">
+                    <input type="hidden" id="colaboradorId">
+                    
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="nomeColaborador" required>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>CPF</label>
+                            <input type="text" id="cpf" placeholder="000.000.000-00">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="text" id="telefone" placeholder="(11) 99999-9999">
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Função *</label>
+                            <select id="funcaoColaborador" required>
+                                <option value="Motorista">Motorista</option>
+                                <option value="Frota">Frota</option>
+                                <option value="Operações">Operações</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Gerência">Gerência</option>
+                                <option value="Administrativo">Administrativo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Setor *</label>
+                            <select id="setorColaborador" required>
+                                <option value="Frota">Frota</option>
+                                <option value="Operações">Operações</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Infra">Infra</option>
+                                <option value="NOC">NOC</option>
+                                <option value="SOC">SOC</option>
+                                <option value="RH">RH</option>
+                                <option value="Administrativo">Administrativo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Data Admissão</label>
+                            <input type="date" id="dataAdmissao">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="statusColaborador" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="fecharModalColaborador()" style="flex: 1;">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="salvarColaborador()" style="flex: 1;">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL USUÁRIO -->
+    <div class="modal" id="modalUsuario">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalUsuarioTitulo">Novo Usuário</h2>
+                <button class="close-btn" onclick="fecharModalUsuario()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="formUsuario">
+                    <input type="hidden" id="usuarioId">
+                    
+                    <div class="form-group">
+                        <label>Nome de Usuário *</label>
+                        <input type="text" id="nomeUsuario" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="nomeCompletoUsuario" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="emailUsuario" required>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Função *</label>
+                            <select id="funcaoUsuario" required onchange="verificarFuncaoUsuario()">
+                                <option value="admin">Administrador</option>
+                                <option value="encarregado">Encarregado</option>
+                                <option value="usuario">Usuário Comum</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="setorUsuarioGroup">
+                            <label>Setor *</label>
+                            <select id="setorUsuario" required>
+                                <option value="Frota">Frota</option>
+                                <option value="Operações">Operações</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Infra">Infra</option>
+                                <option value="NOC">NOC</option>
+                                <option value="SOC">SOC</option>
+                                <option value="RH">RH</option>
+                                <option value="Administrativo">Administrativo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid" id="senhaFields">
+                        <div class="form-group">
+                            <label>Senha *</label>
+                            <input type="password" id="senhaUsuario" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Confirmar Senha *</label>
+                            <input type="password" id="confirmarSenhaUsuario" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="statusUsuario">
+                            <option value="true">Ativo</option>
+                            <option value="false">Inativo</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="fecharModalUsuario()" style="flex: 1;">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="salvarUsuario()" style="flex: 1;">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL ALTERAR SENHA -->
+    <div class="modal" id="modalAlterarSenha">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Alterar Senha</h2>
+                <button class="close-btn" onclick="fecharModalAlterarSenha()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAlterarSenha">
+                    <div class="form-group">
+                        <label>Senha Atual *</label>
+                        <input type="password" id="senhaAtual" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nova Senha *</label>
+                        <input type="password" id="novaSenha" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Confirmar Nova Senha *</label>
+                        <input type="password" id="confirmarNovaSenha" required>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="fecharModalAlterarSenha()" style="flex: 1;">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="salvarNovaSenha()" style="flex: 1;">Alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL PERFIL -->
+    <div class="modal" id="modalPerfil">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Meu Perfil</h2>
+                <button class="close-btn" onclick="fecharModalPerfil()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="perfilConteudo">
+                <!-- Carregado dinamicamente -->
+            </div>
+        </div>
     </div>
     
     <script>
@@ -1524,73 +1828,74 @@
         
         // ========== LOGIN ==========
         async function fazerLogin() {
-    // Resetar erros
-    document.querySelectorAll('.login-error-message').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.login-form-control').forEach(el => {
-        el.style.borderColor = '#e2e8f0';
-    });
-    
-    const usuario = document.getElementById('loginUsuario').value.trim();
-    const senha = document.getElementById('loginSenha').value;
-    
-    let valido = true;
-    
-    if (!usuario) {
-        document.getElementById('loginUsuario').style.borderColor = '#ef4444';
-        document.getElementById('loginUsuarioError').style.display = 'block';
-        valido = false;
-    }
-    
-    if (!senha) {
-        document.getElementById('loginSenha').style.borderColor = '#ef4444';
-        document.getElementById('loginSenhaError').style.display = 'block';
-        valido = false;
-    }
-    
-    if (!valido) return;
-    
-    try {
-        // Buscar usuário na tabela 'usuarios'
-        const { data, error } = await supabaseClient
-            .from('usuarios')
-            .select('*')
-            .eq('nome_usuario', usuario)
-            .eq('ativo', true)
-            .single();
-        
-        if (error || !data) {
-            mostrarErroLogin('Usuário não encontrado ou inativo');
-            return;
+            // Resetar erros
+            document.querySelectorAll('.login-error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.login-form-control').forEach(el => {
+                el.style.borderColor = '#e2e8f0';
+            });
+            
+            const usuario = document.getElementById('loginUsuario').value.trim();
+            const senha = document.getElementById('loginSenha').value;
+            
+            let valido = true;
+            
+            if (!usuario) {
+                document.getElementById('loginUsuario').style.borderColor = '#ef4444';
+                document.getElementById('loginUsuarioError').style.display = 'block';
+                valido = false;
+            }
+            
+            if (!senha) {
+                document.getElementById('loginSenha').style.borderColor = '#ef4444';
+                document.getElementById('loginSenhaError').style.display = 'block';
+                valido = false;
+            }
+            
+            if (!valido) return;
+            
+            try {
+                // Buscar usuário na tabela 'usuarios'
+                const { data, error } = await supabaseClient
+                    .from('usuarios')
+                    .select('*')
+                    .eq('nome_usuario', usuario)
+                    .eq('ativo', true)
+                    .single();
+                
+                if (error || !data) {
+                    mostrarErroLogin('Usuário não encontrado ou inativo');
+                    return;
+                }
+                
+                // Verificar senha (simples - em produção use bcrypt)
+                if (data.senha_hash !== btoa(senha)) {
+                    mostrarErroLogin('Senha incorreta');
+                    return;
+                }
+                
+                // Login bem-sucedido
+                usuarioAtual = {
+                    id: data.id,
+                    nome: data.nome,
+                    email: data.email,
+                    nome_usuario: data.nome_usuario,
+                    funcao: data.funcao || 'usuario',
+                    setor: data.setor || 'Geral'
+                };
+                
+                localStorage.setItem('fleet_user', JSON.stringify(usuarioAtual));
+                
+                mostrarNotificacao('Login realizado com sucesso!', 'success');
+                mostrarAplicacao();
+                
+            } catch (error) {
+                console.error('Erro no login:', error);
+                mostrarErroLogin('Erro ao conectar com o servidor');
+            }
         }
         
-        // Verificar senha
-        if (data.senha_hash !== btoa(senha)) {
-            mostrarErroLogin('Senha incorreta');
-            return;
-        }
-        
-        // Login bem-sucedido
-        usuarioAtual = {
-            id: data.id,
-            nome: data.nome,
-            email: data.email,
-            nome_usuario: data.nome_usuario,
-            funcao: data.funcao || 'usuario',
-            setor: data.setor || 'Geral'
-        };
-        
-        localStorage.setItem('fleet_user', JSON.stringify(usuarioAtual));
-        
-        mostrarNotificacao('Login realizado com sucesso!', 'success');
-        mostrarAplicacao();
-        
-    } catch (error) {
-        console.error('Erro no login:', error);
-        mostrarErroLogin('Erro ao conectar com o servidor');
-    }
-}  
         function mostrarErroLogin(mensagem) {
             const notification = document.createElement('div');
             notification.className = 'notification error';
@@ -1619,89 +1924,90 @@
         }
         
         async function criarPrimeiroAdmin() {
-    const usuario = document.getElementById('primeiroUsuario').value.trim();
-    const nome = document.getElementById('primeiroNome').value.trim();
-    const email = document.getElementById('primeiroEmail').value.trim();
-    const senha = document.getElementById('primeiroSenha').value;
-    const confirmar = document.getElementById('primeiroConfirmarSenha').value;
-    
-    // Validações
-    if (!usuario || !nome || !email || !senha) {
-        mostrarNotificacao('Preencha todos os campos', 'error');
-        return;
-    }
-    
-    if (senha !== confirmar) {
-        mostrarNotificacao('Senhas não conferem', 'error');
-        return;
-    }
-    
-    if (senha.length < 6) {
-        mostrarNotificacao('Senha deve ter no mínimo 6 caracteres', 'error');
-        return;
-    }
-    
-    if (!email.includes('@')) {
-        mostrarNotificacao('Email inválido', 'error');
-        return;
-    }
-    
-    try {
-        // Verificar se já existe algum admin
-        const { data: verificar, error: verifError } = await supabaseClient
-            .from('usuarios')
-            .select('id')
-            .eq('funcao', 'admin')
-            .limit(1);
-        
-        if (!verifError && verificar && verificar.length > 0) {
-            mostrarNotificacao('Já existe um administrador no sistema', 'error');
-            fecharModalPrimeiroAcesso();
-            return;
-        }
-        
-        // Criar o admin - com os campos EXATOS da sua tabela
-        const { error } = await supabaseClient
-            .from('usuarios')
-            .insert([{
-                nome_usuario: usuario,
-                nome: nome,
-                email: email,
-                senha_hash: btoa(senha), // SIMPLES - em produção use hash de verdade
-                funcao: 'admin',
-                setor: 'Geral',
-                ativo: true,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(), // ← ATENÇÃO: updated_at (com d)
-                senha_alterada: false // ← BOOLEAN, não data
-            }]);
-        
-        if (error) {
-            console.error('Erro detalhado:', error);
+            const usuario = document.getElementById('primeiroUsuario').value.trim();
+            const nome = document.getElementById('primeiroNome').value.trim();
+            const email = document.getElementById('primeiroEmail').value.trim();
+            const senha = document.getElementById('primeiroSenha').value;
+            const confirmar = document.getElementById('primeiroConfirmarSenha').value;
             
-            if (error.message && error.message.includes('duplicate')) {
-                mostrarNotificacao('Nome de usuário ou email já existe', 'error');
-            } else {
-                mostrarNotificacao('Erro ao criar administrador: ' + (error.message || 'Erro desconhecido'), 'error');
+            // Validações
+            if (!usuario || !nome || !email || !senha) {
+                mostrarNotificacao('Preencha todos os campos', 'error');
+                return;
             }
-            return;
+            
+            if (senha !== confirmar) {
+                mostrarNotificacao('Senhas não conferem', 'error');
+                return;
+            }
+            
+            if (senha.length < 6) {
+                mostrarNotificacao('Senha deve ter no mínimo 6 caracteres', 'error');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                mostrarNotificacao('Email inválido', 'error');
+                return;
+            }
+            
+            try {
+                // Verificar se já existe algum admin
+                const { data: verificar, error: verifError } = await supabaseClient
+                    .from('usuarios')
+                    .select('id')
+                    .eq('funcao', 'admin')
+                    .limit(1);
+                
+                if (!verifError && verificar && verificar.length > 0) {
+                    mostrarNotificacao('Já existe um administrador no sistema', 'error');
+                    fecharModalPrimeiroAcesso();
+                    return;
+                }
+                
+                // Criar o admin - com os campos EXATOS da sua tabela
+                const { error } = await supabaseClient
+                    .from('usuarios')
+                    .insert([{
+                        nome_usuario: usuario,
+                        nome: nome,
+                        email: email,
+                        senha_hash: btoa(senha),
+                        funcao: 'admin',
+                        setor: 'Geral',
+                        ativo: true,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString(),
+                        senha_alterada: false
+                    }]);
+                
+                if (error) {
+                    console.error('Erro detalhado:', error);
+                    
+                    if (error.message && error.message.includes('duplicate')) {
+                        mostrarNotificacao('Nome de usuário ou email já existe', 'error');
+                    } else {
+                        mostrarNotificacao('Erro ao criar administrador: ' + (error.message || 'Erro desconhecido'), 'error');
+                    }
+                    return;
+                }
+                
+                mostrarNotificacao('Administrador criado com sucesso! Faça o login.', 'success');
+                fecharModalPrimeiroAcesso();
+                
+                // Limpar campos
+                document.getElementById('primeiroUsuario').value = 'admin';
+                document.getElementById('primeiroNome').value = '';
+                document.getElementById('primeiroEmail').value = '';
+                document.getElementById('primeiroSenha').value = '';
+                document.getElementById('primeiroConfirmarSenha').value = '';
+                
+            } catch (error) {
+                console.error('Erro ao criar admin:', error);
+                mostrarNotificacao('Erro ao criar administrador', 'error');
+            }
         }
         
-        mostrarNotificacao('Administrador criado com sucesso! Faça o login.', 'success');
-        fecharModalPrimeiroAcesso();
-        
-        // Limpar campos
-        document.getElementById('primeiroUsuario').value = 'admin';
-        document.getElementById('primeiroNome').value = '';
-        document.getElementById('primeiroEmail').value = '';
-        document.getElementById('primeiroSenha').value = '';
-        document.getElementById('primeiroConfirmarSenha').value = '';
-        
-    } catch (error) {
-        console.error('Erro ao criar admin:', error);
-        mostrarNotificacao('Erro ao criar administrador', 'error');
-    }
-}   
         // ========== LOGOUT ==========
         function logout() {
             localStorage.removeItem('fleet_user');
@@ -1944,7 +2250,7 @@
                     datasets: [{
                         label: 'Usos',
                         data: topVeiculos.map(v => v[1]),
-                        backgroundColor: '#3b82f6',
+                        backgroundColor: '#1e40af',
                         borderRadius: 8
                     }]
                 },
@@ -2036,22 +2342,22 @@
             if (!item) return;
             
             const dataFormatada = item.data ? item.data.split('-').reverse().join('/') : 'N/D';
-            alert(`Detalhes:\n\nData: ${dataFormatada}\nHora: ${item.hora}\nVeículo: ${item.veiculo}\nPlaca: ${item.placa}\nKM: ${item.km} km`);
+            alert(`Detalhes do Registro:\n\nData: ${dataFormatada}\nHora: ${item.hora}\nVeículo: ${item.veiculo}\nPlaca: ${item.placa}\nKM: ${item.km} km\nColaborador: ${item.colaborador}\nTipo: ${item.tipo_rota}`);
         }
         
         async function excluirChecklist(id) {
-            if (!confirm('Excluir este registro?')) return;
+            if (!confirm('Excluir este registro permanentemente?')) return;
             
             try {
                 const { error } = await supabaseClient.from('checklists').delete().eq('id', id);
                 if (error) throw error;
                 
-                mostrarNotificacao('Registro excluído!', 'success');
+                mostrarNotificacao('Registro excluído com sucesso!', 'success');
                 await carregarChecklists();
                 
             } catch (error) {
                 console.error('Erro ao excluir checklist:', error);
-                mostrarNotificacao('Erro ao excluir', 'error');
+                mostrarNotificacao('Erro ao excluir registro', 'error');
             }
         }
         
@@ -2092,7 +2398,7 @@
                         <i class="fas fa-truck"></i>
                     </div>
                     <div class="stat-value">${veiculosData.length}</div>
-                    <div class="stat-label">Total</div>
+                    <div class="stat-label">Total de Veículos</div>
                 </div>
                 
                 <div class="stat-card-modern">
@@ -2108,7 +2414,7 @@
                         <i class="fas fa-tools"></i>
                     </div>
                     <div class="stat-value">${manutencao}</div>
-                    <div class="stat-label">Manutenção</div>
+                    <div class="stat-label">Em Manutenção</div>
                 </div>
                 
                 <div class="stat-card-modern">
@@ -2116,7 +2422,7 @@
                         <i class="fas fa-road"></i>
                     </div>
                     <div class="stat-value">${veiculosData.reduce((acc, v) => acc + (v.km_atual || 0), 0).toLocaleString()}</div>
-                    <div class="stat-label">KM Total</div>
+                    <div class="stat-label">KM Total Frota</div>
                 </div>
             `;
         }
@@ -2145,7 +2451,7 @@
                 
                 html += `
                     <tr>
-                        <td><strong>${v.placa}</strong></td>
+                        <td><strong>${v.placa || 'N/D'}</strong></td>
                         <td>${v.modelo || 'N/D'}</td>
                         <td>${v.marca || 'N/D'}</td>
                         <td><span class="badge-modern badge-info">${v.setor || 'N/D'}</span></td>
@@ -2153,14 +2459,14 @@
                             <span class="status-indicator ${statusClass}"></span>
                             <span class="badge-modern ${v.status === 'ativo' ? 'badge-success' : 
                                  v.status === 'manutencao' ? 'badge-warning' : 'badge-danger'}">
-                                ${v.status?.toUpperCase() || 'ATIVO'}
+                                ${v.status ? v.status.toUpperCase() : 'ATIVO'}
                             </span>
                         </td>
                         <td>${(v.km_atual || 0).toLocaleString()} km</td>
                         <td>
                             <div class="action-buttons">
                                 ${podeEditar ? `
-                                    <button class="btn-icon" onclick="editarVeiculo('${v.id}')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" onclick="abrirModalVeiculo(${JSON.stringify(v).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
                                     <button class="btn-icon" onclick="excluirVeiculo('${v.id}')"><i class="fas fa-trash"></i></button>
                                 ` : `
                                     <span style="color: #94a3b8; font-size: 12px;">Sem permissão</span>
@@ -2175,23 +2481,92 @@
         }
         
         function abrirModalVeiculo(veiculo = null) {
-            // Implementar modal de veículo
-            alert('Funcionalidade em desenvolvimento');
+            document.getElementById('modalVeiculoTitulo').textContent = veiculo ? 'Editar Veículo' : 'Novo Veículo';
+            
+            if (veiculo) {
+                document.getElementById('veiculoId').value = veiculo.id || '';
+                document.getElementById('placa').value = veiculo.placa || '';
+                document.getElementById('modelo').value = veiculo.modelo || '';
+                document.getElementById('marca').value = veiculo.marca || '';
+                document.getElementById('setorVeiculo').value = veiculo.setor || 'Frota';
+                document.getElementById('ano').value = veiculo.ano || new Date().getFullYear();
+                document.getElementById('km_atual').value = veiculo.km_atual || 0;
+                document.getElementById('tipo_veiculo').value = veiculo.tipo_veiculo || 'Carro';
+                document.getElementById('statusVeiculo').value = veiculo.status || 'ativo';
+                document.getElementById('observacoesVeiculo').value = veiculo.observacoes || '';
+            } else {
+                document.getElementById('formVeiculo').reset();
+                document.getElementById('veiculoId').value = '';
+                document.getElementById('ano').value = new Date().getFullYear();
+                document.getElementById('setorVeiculo').value = usuarioAtual.setor || 'Frota';
+                document.getElementById('statusVeiculo').value = 'ativo';
+            }
+            
+            document.getElementById('modalVeiculo').style.display = 'flex';
         }
         
-        function editarVeiculo(id) {
-            const veiculo = veiculosData.find(v => v.id === id);
-            if (veiculo) abrirModalVeiculo(veiculo);
+        function fecharModalVeiculo() {
+            document.getElementById('modalVeiculo').style.display = 'none';
+        }
+        
+        async function salvarVeiculo() {
+            const dados = {
+                placa: document.getElementById('placa').value.toUpperCase(),
+                modelo: document.getElementById('modelo').value,
+                marca: document.getElementById('marca').value,
+                setor: document.getElementById('setorVeiculo').value,
+                ano: parseInt(document.getElementById('ano').value),
+                km_atual: parseFloat(document.getElementById('km_atual').value),
+                tipo_veiculo: document.getElementById('tipo_veiculo').value,
+                status: document.getElementById('statusVeiculo').value,
+                observacoes: document.getElementById('observacoesVeiculo').value || null,
+                updated_at: new Date().toISOString()
+            };
+            
+            // Validações
+            if (!dados.placa || !dados.modelo || !dados.marca || !dados.setor || !dados.ano || !dados.km_atual || !dados.tipo_veiculo || !dados.status) {
+                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            
+            const id = document.getElementById('veiculoId').value;
+            
+            try {
+                let error;
+                if (id) {
+                    ({ error } = await supabaseClient.from('veiculos').update(dados).eq('id', id));
+                } else {
+                    dados.created_at = new Date().toISOString();
+                    ({ error } = await supabaseClient.from('veiculos').insert([dados]));
+                }
+                
+                if (error) {
+                    if (error.message.includes('duplicate')) {
+                        mostrarNotificacao('Placa já cadastrada', 'error');
+                    } else {
+                        throw error;
+                    }
+                    return;
+                }
+                
+                mostrarNotificacao(`Veículo ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+                fecharModalVeiculo();
+                await carregarVeiculos();
+                
+            } catch (error) {
+                console.error('Erro ao salvar veículo:', error);
+                mostrarNotificacao('Erro ao salvar veículo', 'error');
+            }
         }
         
         async function excluirVeiculo(id) {
-            if (!confirm('Excluir veículo permanentemente?')) return;
+            if (!confirm('Excluir veículo permanentemente? Esta ação não pode ser desfeita.')) return;
             
             try {
                 const { error } = await supabaseClient.from('veiculos').delete().eq('id', id);
                 if (error) throw error;
                 
-                mostrarNotificacao('Veículo excluído!', 'success');
+                mostrarNotificacao('Veículo excluído com sucesso!', 'success');
                 await carregarVeiculos();
                 
             } catch (error) {
@@ -2292,14 +2667,14 @@
                         <td><span class="badge-modern badge-info">${c.setor || 'N/D'}</span></td>
                         <td>
                             <span class="badge-modern ${c.status === 'ativo' ? 'badge-success' : 'badge-danger'}">
-                                ${c.status?.toUpperCase() || 'ATIVO'}
+                                ${c.status ? c.status.toUpperCase() : 'ATIVO'}
                             </span>
                         </td>
                         <td>${c.telefone || 'N/D'}</td>
                         <td>
                             <div class="action-buttons">
                                 ${podeEditar ? `
-                                    <button class="btn-icon" onclick="editarColaborador('${c.id}')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" onclick="abrirModalColaborador(${JSON.stringify(c).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
                                     <button class="btn-icon" onclick="excluirColaborador('${c.id}')"><i class="fas fa-trash"></i></button>
                                 ` : `
                                     <span style="color: #94a3b8; font-size: 12px;">Sem permissão</span>
@@ -2314,23 +2689,84 @@
         }
         
         function abrirModalColaborador(colaborador = null) {
-            // Implementar modal de colaborador
-            alert('Funcionalidade em desenvolvimento');
+            document.getElementById('modalColaboradorTitulo').textContent = colaborador ? 'Editar Colaborador' : 'Novo Colaborador';
+            
+            if (colaborador) {
+                document.getElementById('colaboradorId').value = colaborador.id || '';
+                document.getElementById('nomeColaborador').value = colaborador.nome_completo || '';
+                document.getElementById('cpf').value = colaborador.cpf || '';
+                document.getElementById('telefone').value = colaborador.telefone || '';
+                document.getElementById('funcaoColaborador').value = colaborador.funcao || 'Motorista';
+                document.getElementById('setorColaborador').value = colaborador.setor || 'Operações';
+                document.getElementById('email').value = colaborador.email || '';
+                document.getElementById('dataAdmissao').value = colaborador.data_admissao || '';
+                document.getElementById('statusColaborador').value = colaborador.status || 'ativo';
+            } else {
+                document.getElementById('formColaborador').reset();
+                document.getElementById('colaboradorId').value = '';
+                document.getElementById('setorColaborador').value = usuarioAtual.setor || 'Operações';
+                document.getElementById('statusColaborador').value = 'ativo';
+            }
+            
+            document.getElementById('modalColaborador').style.display = 'flex';
         }
         
-        function editarColaborador(id) {
-            const colaborador = colaboradoresData.find(c => c.id === id);
-            if (colaborador) abrirModalColaborador(colaborador);
+        function fecharModalColaborador() {
+            document.getElementById('modalColaborador').style.display = 'none';
+        }
+        
+        async function salvarColaborador() {
+            const dados = {
+                nome_completo: document.getElementById('nomeColaborador').value,
+                cpf: document.getElementById('cpf').value || null,
+                telefone: document.getElementById('telefone').value || null,
+                funcao: document.getElementById('funcaoColaborador').value,
+                setor: document.getElementById('setorColaborador').value,
+                email: document.getElementById('email').value || null,
+                data_admissao: document.getElementById('dataAdmissao').value || null,
+                status: document.getElementById('statusColaborador').value,
+                updated_at: new Date().toISOString()
+            };
+            
+            // Validações
+            if (!dados.nome_completo || !dados.funcao || !dados.setor || !dados.status) {
+                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            
+            const id = document.getElementById('colaboradorId').value;
+            
+            try {
+                let error;
+                if (id) {
+                    ({ error } = await supabaseClient.from('colaboradores').update(dados).eq('id', id));
+                } else {
+                    dados.created_at = new Date().toISOString();
+                    ({ error } = await supabaseClient.from('colaboradores').insert([dados]));
+                }
+                
+                if (error) {
+                    throw error;
+                }
+                
+                mostrarNotificacao(`Colaborador ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+                fecharModalColaborador();
+                await carregarColaboradores();
+                
+            } catch (error) {
+                console.error('Erro ao salvar colaborador:', error);
+                mostrarNotificacao('Erro ao salvar colaborador', 'error');
+            }
         }
         
         async function excluirColaborador(id) {
-            if (!confirm('Excluir colaborador permanentemente?')) return;
+            if (!confirm('Excluir colaborador permanentemente? Esta ação não pode ser desfeita.')) return;
             
             try {
                 const { error } = await supabaseClient.from('colaboradores').delete().eq('id', id);
                 if (error) throw error;
                 
-                mostrarNotificacao('Colaborador excluído!', 'success');
+                mostrarNotificacao('Colaborador excluído com sucesso!', 'success');
                 await carregarColaboradores();
                 
             } catch (error) {
@@ -2340,6 +2776,32 @@
         }
         
         // ========== USUÁRIOS ==========
+        function verificarFuncaoUsuario() {
+            const funcao = document.getElementById('funcaoUsuario').value;
+            const setorGroup = document.getElementById('setorUsuarioGroup');
+            const senhaFields = document.getElementById('senhaFields');
+            const usuarioId = document.getElementById('usuarioId').value;
+            
+            if (funcao === 'admin') {
+                setorGroup.style.display = 'none';
+                document.getElementById('setorUsuario').required = false;
+            } else {
+                setorGroup.style.display = 'block';
+                document.getElementById('setorUsuario').required = true;
+            }
+            
+            // Se for edição (tem ID), ocultar campos de senha
+            if (usuarioId) {
+                senhaFields.style.display = 'none';
+                document.getElementById('senhaUsuario').required = false;
+                document.getElementById('confirmarSenhaUsuario').required = false;
+            } else {
+                senhaFields.style.display = 'grid';
+                document.getElementById('senhaUsuario').required = true;
+                document.getElementById('confirmarSenhaUsuario').required = true;
+            }
+        }
+        
         async function carregarUsuarios() {
             try {
                 // Apenas admin pode ver todos usuários
@@ -2393,17 +2855,17 @@
                         <td><strong>${u.nome_usuario || 'N/D'}</strong></td>
                         <td>${u.nome || 'N/D'}</td>
                         <td>${u.email || 'N/D'}</td>
-                        <td><span class="badge-modern ${u.funcao === 'admin' ? 'badge-purple' : u.funcao === 'encarregado' ? 'badge-warning' : 'badge-info'}">${u.funcao?.toUpperCase() || 'USUÁRIO'}</span></td>
+                        <td><span class="badge-modern ${u.funcao === 'admin' ? 'badge-purple' : u.funcao === 'encarregado' ? 'badge-warning' : 'badge-info'}">${u.funcao ? u.funcao.toUpperCase() : 'USUÁRIO'}</span></td>
+                        <td>${u.setor || 'Geral'}</td>
                         <td>
                             <span class="badge-modern ${u.ativo ? 'badge-success' : 'badge-danger'}">
                                 ${u.ativo ? 'ATIVO' : 'INATIVO'}
                             </span>
                         </td>
-                        <td>${u.update_at ? new Date(u.update_at).toLocaleDateString('pt-BR') : 'Nunca'}</td>
                         <td>
                             <div class="action-buttons">
-                                <button class="btn-icon" onclick="editarUsuario('${u.id}')"><i class="fas fa-edit"></i></button>
-                                <button class="btn-icon" onclick="excluirUsuario('${u.id}')"><i class="fas fa-trash"></i></button>
+                                <button class="btn-icon" onclick="abrirModalUsuario(${JSON.stringify(u).replace(/"/g, '&quot;')})"><i class="fas fa-edit"></i></button>
+                                ${u.id !== usuarioAtual.id ? `<button class="btn-icon" onclick="excluirUsuario('${u.id}')"><i class="fas fa-trash"></i></button>` : ''}
                             </div>
                         </td>
                     </tr>
@@ -2414,13 +2876,102 @@
         }
         
         function abrirModalUsuario(usuario = null) {
-            // Implementar modal de usuário
-            alert('Funcionalidade em desenvolvimento');
+            document.getElementById('modalUsuarioTitulo').textContent = usuario ? 'Editar Usuário' : 'Novo Usuário';
+            
+            if (usuario) {
+                document.getElementById('usuarioId').value = usuario.id || '';
+                document.getElementById('nomeUsuario').value = usuario.nome_usuario || '';
+                document.getElementById('nomeCompletoUsuario').value = usuario.nome || '';
+                document.getElementById('emailUsuario').value = usuario.email || '';
+                document.getElementById('funcaoUsuario').value = usuario.funcao || 'usuario';
+                document.getElementById('setorUsuario').value = usuario.setor || 'Frota';
+                document.getElementById('statusUsuario').value = usuario.ativo ? 'true' : 'false';
+            } else {
+                document.getElementById('formUsuario').reset();
+                document.getElementById('usuarioId').value = '';
+                document.getElementById('funcaoUsuario').value = 'usuario';
+                document.getElementById('statusUsuario').value = 'true';
+            }
+            
+            verificarFuncaoUsuario();
+            document.getElementById('modalUsuario').style.display = 'flex';
         }
         
-        function editarUsuario(id) {
-            const usuario = usuariosData.find(u => u.id === id);
-            if (usuario) abrirModalUsuario(usuario);
+        function fecharModalUsuario() {
+            document.getElementById('modalUsuario').style.display = 'none';
+        }
+        
+        async function salvarUsuario() {
+            const id = document.getElementById('usuarioId').value;
+            const nomeUsuario = document.getElementById('nomeUsuario').value.trim();
+            const nomeCompleto = document.getElementById('nomeCompletoUsuario').value.trim();
+            const email = document.getElementById('emailUsuario').value.trim();
+            const funcao = document.getElementById('funcaoUsuario').value;
+            const setor = funcao === 'admin' ? 'Geral' : document.getElementById('setorUsuario').value;
+            const ativo = document.getElementById('statusUsuario').value === 'true';
+            const senha = document.getElementById('senhaUsuario').value;
+            const confirmarSenha = document.getElementById('confirmarSenhaUsuario').value;
+            
+            // Validações básicas
+            if (!nomeUsuario || !nomeCompleto || !email || !funcao) {
+                mostrarNotificacao('Preencha todos os campos obrigatórios', 'error');
+                return;
+            }
+            
+            // Se for novo usuário, validar senha
+            if (!id) {
+                if (!senha || senha.length < 6) {
+                    mostrarNotificacao('Senha deve ter no mínimo 6 caracteres', 'error');
+                    return;
+                }
+                
+                if (senha !== confirmarSenha) {
+                    mostrarNotificacao('Senhas não conferem', 'error');
+                    return;
+                }
+            }
+            
+            try {
+                const dados = {
+                    nome_usuario: nomeUsuario,
+                    nome: nomeCompleto,
+                    email: email,
+                    funcao: funcao,
+                    setor: setor,
+                    ativo: ativo,
+                    updated_at: new Date().toISOString()
+                };
+                
+                if (!id) {
+                    dados.senha_hash = btoa(senha);
+                    dados.created_at = new Date().toISOString();
+                    dados.senha_alterada = false;
+                }
+                
+                let error;
+                if (id) {
+                    ({ error } = await supabaseClient.from('usuarios').update(dados).eq('id', id));
+                } else {
+                    ({ error } = await supabaseClient.from('usuarios').insert([dados]));
+                }
+                
+                if (error) {
+                    if (error.message.includes('duplicate')) {
+                        mostrarNotificacao('Nome de usuário ou email já existe', 'error');
+                    } else {
+                        throw error;
+                    }
+                    return;
+                }
+                
+                mostrarNotificacao(`Usuário ${id ? 'atualizado' : 'cadastrado'} com sucesso!`, 'success');
+                fecharModalUsuario();
+                await carregarUsuarios();
+                
+            } catch (error) {
+                console.error('Erro ao salvar usuário:', error);
+                mostrarNotificacao('Erro ao salvar usuário', 'error');
+            }
         }
         
         async function excluirUsuario(id) {
@@ -2429,13 +2980,13 @@
                 return;
             }
             
-            if (!confirm('Excluir usuário permanentemente?')) return;
+            if (!confirm('Excluir usuário permanentemente? Esta ação não pode ser desfeita.')) return;
             
             try {
                 const { error } = await supabaseClient.from('usuarios').delete().eq('id', id);
                 if (error) throw error;
                 
-                mostrarNotificacao('Usuário excluído!', 'success');
+                mostrarNotificacao('Usuário excluído com sucesso!', 'success');
                 await carregarUsuarios();
                 
             } catch (error) {
@@ -2446,13 +2997,107 @@
         
         // ========== PERFIL E SENHA ==========
         function verPerfil() {
-            alert(`Perfil do Usuário:\n\nNome: ${usuarioAtual.nome}\nUsuário: ${usuarioAtual.nome_usuario}\nEmail: ${usuarioAtual.email}\nFunção: ${usuarioAtual.funcao}\nSetor: ${usuarioAtual.setor}`);
+            document.getElementById('perfilConteudo').innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: #1e40af; border-radius: 40px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 32px; color: white;">
+                        ${usuarioAtual.nome.charAt(0).toUpperCase()}
+                    </div>
+                    <h3>${usuarioAtual.nome}</h3>
+                    <p style="color: #64748b;">${usuarioAtual.email}</p>
+                </div>
+                
+                <div style="background: #f8fafc; padding: 20px; border-radius: 16px;">
+                    <div style="display: grid; gap: 15px;">
+                        <div>
+                            <strong style="color: #475569;">Função:</strong>
+                            <p>${usuarioAtual.funcao === 'admin' ? 'Administrador' : 
+                               usuarioAtual.funcao === 'encarregado' ? 'Encarregado' : 'Usuário'}</p>
+                        </div>
+                        <div>
+                            <strong style="color: #475569;">Setor:</strong>
+                            <p>${usuarioAtual.setor || 'Todos os setores'}</p>
+                        </div>
+                        <div>
+                            <strong style="color: #475569;">Nome de usuário:</strong>
+                            <p>${usuarioAtual.nome_usuario || 'Não definido'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modalPerfil').style.display = 'flex';
+        }
+        
+        function fecharModalPerfil() {
+            document.getElementById('modalPerfil').style.display = 'none';
         }
         
         function alterarSenha() {
-            alert('Funcionalidade de alterar senha em desenvolvimento');
+            document.getElementById('modalAlterarSenha').style.display = 'flex';
         }
         
+        function fecharModalAlterarSenha() {
+            document.getElementById('modalAlterarSenha').style.display = 'none';
+            document.getElementById('formAlterarSenha').reset();
+        }
+        
+        async function salvarNovaSenha() {
+            const senhaAtual = document.getElementById('senhaAtual').value;
+            const novaSenha = document.getElementById('novaSenha').value;
+            const confirmarSenha = document.getElementById('confirmarNovaSenha').value;
+            
+            if (!senhaAtual || !novaSenha || !confirmarSenha) {
+                mostrarNotificacao('Preencha todos os campos', 'error');
+                return;
+            }
+            
+            if (novaSenha.length < 6) {
+                mostrarNotificacao('Nova senha deve ter no mínimo 6 caracteres', 'error');
+                return;
+            }
+            
+            if (novaSenha !== confirmarSenha) {
+                mostrarNotificacao('Senhas não conferem', 'error');
+                return;
+            }
+            
+            try {
+                // Verificar senha atual
+                const { data, error } = await supabaseClient
+                    .from('usuarios')
+                    .select('senha_hash')
+                    .eq('id', usuarioAtual.id)
+                    .single();
+                
+                if (error) throw error;
+                
+                if (data.senha_hash !== btoa(senhaAtual)) {
+                    mostrarNotificacao('Senha atual incorreta', 'error');
+                    return;
+                }
+                
+                // Atualizar senha
+                const { error: updateError } = await supabaseClient
+                    .from('usuarios')
+                    .update({
+                        senha_hash: btoa(novaSenha),
+                        senha_alterada: true,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('id', usuarioAtual.id);
+                
+                if (updateError) throw updateError;
+                
+                mostrarNotificacao('Senha alterada com sucesso!', 'success');
+                fecharModalAlterarSenha();
+                
+            } catch (error) {
+                console.error('Erro ao alterar senha:', error);
+                mostrarNotificacao('Erro ao alterar senha', 'error');
+            }
+        }
+        
+        // ========== RELATÓRIOS ==========
         function gerarRelatorio() {
             mudarAba('relatorios');
         }
@@ -2462,23 +3107,27 @@
             const dados = checklistsData.filter(item => item.data === hoje);
             
             if (!dados.length) {
-                mostrarNotificacao('Sem dados hoje', 'info');
+                mostrarNotificacao('Sem dados para hoje', 'info');
                 return;
             }
             
-            const conteudo = `Relatório Diário - ${new Date().toLocaleDateString('pt-BR')}\n\n` +
+            const conteudo = `RELATÓRIO DIÁRIO - ${new Date().toLocaleDateString('pt-BR')}\n` +
+                `====================================\n\n` +
                 `Setor: ${usuarioAtual.setor || 'Todos'}\n` +
-                `Total: ${dados.length} registros\n` +
-                `Inícios: ${dados.filter(d => d.tipo_rota === 'INÍCIO').length}\n` +
-                `Finais: ${dados.filter(d => d.tipo_rota === 'FINAL').length}`;
+                `Data: ${new Date().toLocaleDateString('pt-BR')}\n` +
+                `Total de registros: ${dados.length}\n` +
+                `Inícios de rota: ${dados.filter(d => d.tipo_rota === 'INÍCIO').length}\n` +
+                `Finais de rota: ${dados.filter(d => d.tipo_rota === 'FINAL').length}\n\n` +
+                `Gerado por: ${usuarioAtual.nome}\n` +
+                `Gerado em: ${new Date().toLocaleString('pt-BR')}`;
             
-            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `relatorio_diario_${hoje}.txt`;
+            link.download = `relatorio_diario_${new Date().toISOString().split('T')[0]}.txt`;
             link.click();
             
-            mostrarNotificacao('Relatório gerado', 'success');
+            mostrarNotificacao('Relatório diário gerado com sucesso!', 'success');
         }
         
         function gerarRelatorioSemanal() {
@@ -2489,22 +3138,27 @@
             const dados = checklistsData.filter(item => new Date(item.data) >= umaSemana);
             
             if (!dados.length) {
-                mostrarNotificacao('Sem dados na semana', 'info');
+                mostrarNotificacao('Sem dados na última semana', 'info');
                 return;
             }
             
-            const conteudo = `Relatório Semanal\n` +
+            const conteudo = `RELATÓRIO SEMANAL\n` +
+                `====================================\n\n` +
                 `Período: ${umaSemana.toLocaleDateString('pt-BR')} a ${hoje.toLocaleDateString('pt-BR')}\n` +
-                `Setor: ${usuarioAtual.setor || 'Todos'}\n\n` +
-                `Total: ${dados.length} registros`;
+                `Setor: ${usuarioAtual.setor || 'Todos'}\n` +
+                `Total de registros: ${dados.length}\n` +
+                `Inícios de rota: ${dados.filter(d => d.tipo_rota === 'INÍCIO').length}\n` +
+                `Finais de rota: ${dados.filter(d => d.tipo_rota === 'FINAL').length}\n\n` +
+                `Gerado por: ${usuarioAtual.nome}\n` +
+                `Gerado em: ${new Date().toLocaleString('pt-BR')}`;
             
-            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `relatorio_semanal_${hoje.toISOString().split('T')[0]}.txt`;
             link.click();
             
-            mostrarNotificacao('Relatório gerado', 'success');
+            mostrarNotificacao('Relatório semanal gerado com sucesso!', 'success');
         }
         
         function gerarRelatorioMensal() {
@@ -2514,41 +3168,51 @@
             const dados = checklistsData.filter(item => new Date(item.data) >= mesInicio);
             
             if (!dados.length) {
-                mostrarNotificacao('Sem dados no mês', 'info');
+                mostrarNotificacao('Sem dados no mês atual', 'info');
                 return;
             }
             
-            const conteudo = `Relatório Mensal - ${hoje.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}\n` +
-                `Setor: ${usuarioAtual.setor || 'Todos'}\n\n` +
-                `Total: ${dados.length} registros`;
+            const conteudo = `RELATÓRIO MENSAL - ${hoje.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' }).toUpperCase()}\n` +
+                `====================================\n\n` +
+                `Período: ${mesInicio.toLocaleDateString('pt-BR')} a ${hoje.toLocaleDateString('pt-BR')}\n` +
+                `Setor: ${usuarioAtual.setor || 'Todos'}\n` +
+                `Total de registros: ${dados.length}\n` +
+                `Inícios de rota: ${dados.filter(d => d.tipo_rota === 'INÍCIO').length}\n` +
+                `Finais de rota: ${dados.filter(d => d.tipo_rota === 'FINAL').length}\n\n` +
+                `Gerado por: ${usuarioAtual.nome}\n` +
+                `Gerado em: ${new Date().toLocaleString('pt-BR')}`;
             
-            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `relatorio_mensal_${hoje.toISOString().split('T')[0]}.txt`;
             link.click();
             
-            mostrarNotificacao('Relatório gerado', 'success');
+            mostrarNotificacao('Relatório mensal gerado com sucesso!', 'success');
         }
         
         function gerarRelatorioCompleto() {
             if (!checklistsData.length) {
-                mostrarNotificacao('Sem dados', 'warning');
+                mostrarNotificacao('Sem dados para gerar relatório', 'warning');
                 return;
             }
             
-            const conteudo = `Relatório Completo\n` +
-                `Gerado em: ${new Date().toLocaleString('pt-BR')}\n` +
+            const conteudo = `RELATÓRIO COMPLETO DO SISTEMA\n` +
+                `====================================\n\n` +
+                `Gerado em: ${new Date().toLocaleString('pt-br')}\n` +
                 `Setor: ${usuarioAtual.setor || 'Todos'}\n` +
-                `Total de registros: ${checklistsData.length}`;
+                `Total de registros: ${checklistsData.length}\n` +
+                `Inícios de rota: ${checklistsData.filter(d => d.tipo_rota === 'INÍCIO').length}\n` +
+                `Finais de rota: ${checklistsData.filter(d => d.tipo_rota === 'FINAL').length}\n\n` +
+                `Gerado por: ${usuarioAtual.nome}`;
             
-            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const blob = new Blob([conteudo], { type: 'text/plain;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `relatorio_completo_${new Date().toISOString().split('T')[0]}.txt`;
             link.click();
             
-            mostrarNotificacao('Relatório gerado', 'success');
+            mostrarNotificacao('Relatório completo gerado com sucesso!', 'success');
         }
         
         function exportarDados() {
@@ -2557,17 +3221,29 @@
                 return;
             }
             
-            const csv = checklistsData.map(item => 
-                `${item.data},${item.hora},${item.colaborador},${item.veiculo},${item.placa},${item.km},${item.tipo_rota}`
-            ).join('\n');
+            const cabecalhos = ['Data', 'Hora', 'Colaborador', 'Veículo', 'Placa', 'KM', 'Tipo Rota'];
+            const linhas = checklistsData.map(item => [
+                item.data || '',
+                item.hora || '',
+                item.colaborador || '',
+                item.veiculo || '',
+                item.placa || '',
+                item.km || 0,
+                item.tipo_rota || ''
+            ]);
             
-            const blob = new Blob([csv], { type: 'text/csv' });
+            const csv = [
+                cabecalhos.join(','),
+                ...linhas.map(linha => linha.map(campo => `"${String(campo).replace(/"/g, '""')}"`).join(','))
+            ].join('\n');
+            
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `checklists_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
             
-            mostrarNotificacao('Dados exportados', 'success');
+            mostrarNotificacao('Dados exportados com sucesso!', 'success');
         }
     </script>
 </body>
